@@ -73,6 +73,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-编译原理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-09-10T23:16:59.000Z" itemprop="datePublished">2023-09-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>过程<br>源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成</p>
+</li>
+<li><p>设计<br>确保语法没有歧义（避免二义性）</p>
+</li>
+<li><p>词法分析器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while i &lt; 10 &#123;</span><br></pre></td></tr></table></figure>
+<p>这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉</p>
+<p>实际的单词则是Token类的子类，假如要设计一个有标识符，整形字面量和字符串字面量的语言，就要定义对应的Token类的子类，并让每种子类覆盖Token类的isIndentifier（标识符则为真），isNumber（数字则为真），isString（字符串则为真），还应有EOL和EOF作<br>为结尾的标志</p>
+<p>设计词法分析器（Lexer）时，可以用正则表达式，在Java中可以将Lexer定义为一个类，包含read和peek两个方法。read用于从源代码头部逐一获取单词，调用read将会返回一个新的单词；peek方法用于预读，peek(i)将返回read方法即将返回的单词之后的第i个单词，当参数为0时，与read作用相同</p>
+<p>实现peek需要一个ArrayList对象，词法分析器读取代码并获取单词后这些单词暂时保存在一个名为queue的ArrayList对象中，read方法会将单词从其中删除</p>
+<p>readline方法：从一行读取单词，用正则匹配，匹配完成后，词法分析器会用group方法获取每个括号对应的子字符串，end方法用于取得匹配部分的结束位置。readline和addToken时核心方法</p>
+<p>其他工具，如JFlex，ANTLR等可以自动生成词法分析器</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clme3ti2l0000wccx3rs7g7g7" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-cpp函数式编程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" class="article-date">
@@ -197,6 +250,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理(1)</a>
+          </li>
         
           <li>
             <a href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">cpp函数式编程</a>
