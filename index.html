@@ -73,6 +73,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-cpp函数式编程-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" class="article-date">
+  <time class="dt-published" datetime="2023-09-12T11:48:37.000Z" itemprop="datePublished">2023-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/">cpp函数式编程(3)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>对递归函数的记忆化包装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">namespace detail&#123;</span><br><span class="line">class numm_param&#123;&#125;;</span><br><span class="line">//空构造函数</span><br><span class="line">template&lt;class Sig,class F&gt;</span><br><span class="line">class memorize_helper;</span><br><span class="line"></span><br><span class="line">template&lt;class Result,class... Args,class F&gt;</span><br><span class="line">class memorize_helper&lt;Result(Args...),F&gt;&#123;</span><br><span class="line">    private:</span><br><span class="line">    using function_type=F;</span><br><span class="line">    using args_tuple_type=std::tuple&lt;std::decay_t&lt;Args&gt;...&gt;;</span><br><span class="line">    function_type f;</span><br><span class="line">    mutable std::map&lt;args_tuple_type,Result&gt; m_cache;</span><br><span class="line">    mutable std::recursive_mutex m_caches_mutex;</span><br><span class="line">    public:</span><br><span class="line">    template&lt;typename Function&gt;</span><br><span class="line">    memorize_helper(Function &amp;&amp; f,null_param):f(f)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    memorize_helper(const memorize_helper&amp; other):f(other.f)&#123;&#125;</span><br><span class="line">    template&lt;class ... InnerArgs&gt;</span><br><span class="line">    Result operator()(InnerArgs &amp;&amp; ...args)const&#123;</span><br><span class="line">        std::unique_lock&lt;std::recursive_mutex&gt; lock &#123;m_caches_mutex&#125;;</span><br><span class="line">        const auto args_tuple=std::make_tuple(args...);</span><br><span class="line">        const auto cached=m_cache.find(args_tuple);</span><br><span class="line">        if(cached!=m_cache.end())&#123;</span><br><span class="line">            return cached.second;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            auto &amp;&amp; result=f(</span><br><span class="line">                *this,</span><br><span class="line">                std::forward&lt;InnerArgs&gt;(args)...</span><br><span class="line">            );</span><br><span class="line">            m_cache[args_tuple]=result;</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br><span class="line">template&lt;class Sig,class F&gt;</span><br><span class="line">detail::memorize_helper&lt;Sig,std::decay_t&lt;F&gt;&gt;</span><br><span class="line">make_memorized_r(F &amp;&amp; f)&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        std::forward&lt;F&gt;(f),detail::null_param()</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式用于调用记忆化函数和前一次调用结果的函数对象</p>
+</li>
+<li><p>惰性求值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;type_traits&gt;</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">template&lt;typename ... String&gt;</span><br><span class="line">class lazy_string_concat_helper;</span><br><span class="line">template&lt;typename LastString,typename ... Strings&gt;</span><br><span class="line">class lazy_string_concat_helper&lt;LastString,Strings...&gt;&#123;</span><br><span class="line">    private:</span><br><span class="line">    LastString data;</span><br><span class="line">    lazy_string_concat_helper &lt;Strings ...&gt; tail;</span><br><span class="line">    public:</span><br><span class="line">    lazy_string_concat_helper(</span><br><span class="line">        LastString data,</span><br><span class="line">        lazy_string_concat_helper &lt;Strings...&gt;tail</span><br><span class="line">    ):data(data),tail(tail)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    int size()const&#123;</span><br><span class="line">        retur data.size();+tail.size();</span><br><span class="line">    &#125;</span><br><span class="line">    template&lt;typename It&gt;</span><br><span class="line">    void save(It end) const&#123;</span><br><span class="line">        const auto begin=end-data.size();</span><br><span class="line">        std::copy(data.cbegin(),data.cend(),begin);</span><br><span class="line">        tail.save(begin);</span><br><span class="line">    &#125;</span><br><span class="line">    operator std::string() const&#123;</span><br><span class="line">        std::string result(size(),&#x27;\0&#x27;);</span><br><span class="line">        save(result.end());</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">    lazy_string_concat_helper&lt;std::string,LastString,Strings...&gt; operator+(const std::string&amp; other) const&#123;</span><br><span class="line">        return lazy_string_concat_helper&lt;std::string,LastString,Strings...&gt;(</span><br><span class="line">            other,</span><br><span class="line">            *this</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;&gt;</span><br><span class="line">class lazy_string_concat_helper&lt;&gt;&#123;</span><br><span class="line">    public:</span><br><span class="line">    lazy_string_concat_helper()&#123;&#125;</span><br><span class="line">    int size()const&#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    template &lt;typename t&gt;</span><br><span class="line">    void save(t)const&#123;&#125;</span><br><span class="line">    lazy_string_concat_helper&lt;std::string&gt;</span><br><span class="line">    operator+(const std::string&amp; other)const&#123;</span><br><span class="line">        return lazy_string_concat_helper&lt;std::string&gt;(</span><br><span class="line">            other,</span><br><span class="line">            *this</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以用于惰性计算字符串相加，减少了不必要的内存分配和销毁</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" data-id="clmg97c5w0001n4cx44g47khm" data-title="cpp函数式编程(3)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-cpp函数式编程-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" class="article-date">
@@ -104,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="clmfhuaf80000zkcx11ni7wmo" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="clmg97c5r0000n4cx1cnjfuva" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -149,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="clmed3quc0003f0cxamtka09q" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="clmg97c620004n4cxc44y0zfj" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -202,7 +250,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clmed3qtw0002f0cxf4pkebfl" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clmg97c630005n4cxhe6p56zr" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -246,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="clmed3qtq0000f0cx6iknebjl" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="clmg97c5x0002n4cx4n93card" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -297,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/hello-world/" data-id="clmed3qtu0001f0cx0yvigv6b" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/10/hello-world/" data-id="clmg97c5y0003n4cx8xcthlh6" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -340,6 +388,10 @@
       <ul>
         
           <li>
+            <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/">cpp函数式编程(3)</a>
+          </li>
+        
+          <li>
             <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/">cpp函数式编程(2)</a>
           </li>
         
@@ -353,10 +405,6 @@
         
           <li>
             <a href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">cpp函数式编程</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/10/hello-world/">Hello World</a>
           </li>
         
       </ul>
