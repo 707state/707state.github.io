@@ -105,11 +105,13 @@
 <h2 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h2><p>按照一个策略进行计算<br>例题4：硬币问题<br>这个问题里面硬币的面值为递增，求最小硬币数达到给定值。很自然想到先从较大的硬币开始选择，因此可以用min(target&#x2F;coins[i],nums[i])来确定当前可用的硬币数。<br>这个问题假定有解</p>
 <p>例题5：工作区间问题<br>给定两个序列，分别代表该工作的开始和结束时间，求能做的工作最大数<br>这道题的思路是寻找最早结束的工作，因此每一次选择工作都应该找最早结束的。</p>
 <p>例题6：字典序最小<br>例如”abced”&#x3D;&gt;”abcde”或者”dtesa”&#x3D;&gt;”adste”，判断首尾找最小，相同则向内找较小值</p>
+<p>例题7：Saruman’s Army（最少几个区间能覆盖所有的点）<br>关键在于理解题意，题目中每个点都是又有左延又有右延的，第一次应该从最左侧的点开始查询，直到遇见第一个超过R的点，然后取他的上一个点作为开始，继续向右查找下一个点，这才是一轮完整的贪心，这样一次过后找到的点有两个，分别是右端点s和下一轮查找的一个中间点p。然后查询时会从s和p转移到p和p’，不断转移最后计算得到总的数目。</p>
+<p>例题8：fence repair<br>切割一组木板需要的开销，这个题目其实可以转化成哈夫曼树的路径吧。这样一来就有优先队列和贪心法两种解法，还是考虑贪心法。我们可以猜到一组数据两两组合再插回求其值的最小，应当选取最小值然后放回，每一个要算的值等于其在二叉树中的深度乘以值。对应在贪心法，就是用一个数组，每一次寻找最小和次小值放在最后两位，计算后将和放在倒数第二个并把最后一个元素去除，不断计算直到值为1</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="clow7o8cy0005yccx35kq62dq" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="cloxn85ca0005xwcx4qt31xh3" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -157,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" data-id="clow7o8cr0001yccx92l0g4zq" data-title="cpp函数式编程(3)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" data-id="cloxn85c30001xwcx1dsk8ovv" data-title="cpp函数式编程(3)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -200,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="clow7o8cm0000yccxd2m1dvaz" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="cloxn85bx0000xwcxcbok4okk" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -245,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="clow7o8cx0004yccx7ng9e9mu" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="cloxn85c60003xwcxd0ruh4ue" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -298,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clow7o8cy0006yccx21b6816u" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="cloxn85ca0006xwcxc6qagbz6" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -342,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="clow7o8ct0002yccx9nf9ej44" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="cloxn85c60004xwcx02uu3xeb" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -393,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/hello-world/" data-id="clow7o8cv0003yccx4qs25ejg" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/10/hello-world/" data-id="cloxn85c50002xwcxg0sibm42" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

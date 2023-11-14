@@ -14,7 +14,7 @@
 <meta property="og:description" content="回归到搜索算法第一步就是函数的递归，也就是穷竭式搜索。递归和栈是穷竭式搜索的常用手段。例题1：部分和问题  本题要点是每一个数是否加入进去进行测试，同是这个题有优化手段，也就是当前和大于目标后可以直接返回。  例题2：联通水洼&#x2F;细胞计数…这道题目属于简单的图论，也就是求联通的图形的个数。在这里每一个联通的图形有一个特点就是和其他的字符连在一起，所以在一个遍历过程中，只需要遇到特征字符就">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-12T11:53:56.000Z">
-<meta property="article:modified_time" content="2023-11-13T01:13:42.707Z">
+<meta property="article:modified_time" content="2023-11-14T01:16:39.843Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -107,11 +107,13 @@
 <h2 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h2><p>按照一个策略进行计算<br>例题4：硬币问题<br>这个问题里面硬币的面值为递增，求最小硬币数达到给定值。很自然想到先从较大的硬币开始选择，因此可以用min(target&#x2F;coins[i],nums[i])来确定当前可用的硬币数。<br>这个问题假定有解</p>
 <p>例题5：工作区间问题<br>给定两个序列，分别代表该工作的开始和结束时间，求能做的工作最大数<br>这道题的思路是寻找最早结束的工作，因此每一次选择工作都应该找最早结束的。</p>
 <p>例题6：字典序最小<br>例如”abced”&#x3D;&gt;”abcde”或者”dtesa”&#x3D;&gt;”adste”，判断首尾找最小，相同则向内找较小值</p>
+<p>例题7：Saruman’s Army（最少几个区间能覆盖所有的点）<br>关键在于理解题意，题目中每个点都是又有左延又有右延的，第一次应该从最左侧的点开始查询，直到遇见第一个超过R的点，然后取他的上一个点作为开始，继续向右查找下一个点，这才是一轮完整的贪心，这样一次过后找到的点有两个，分别是右端点s和下一轮查找的一个中间点p。然后查询时会从s和p转移到p和p’，不断转移最后计算得到总的数目。</p>
+<p>例题8：fence repair<br>切割一组木板需要的开销，这个题目其实可以转化成哈夫曼树的路径吧。这样一来就有优先队列和贪心法两种解法，还是考虑贪心法。我们可以猜到一组数据两两组合再插回求其值的最小，应当选取最小值然后放回，每一个要算的值等于其在二叉树中的深度乘以值。对应在贪心法，就是用一个数组，每一次寻找最小和次小值放在最后两位，计算后将和放在倒数第二个并把最后一个元素去除，不断计算直到值为1</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="clow7o8cy0005yccx35kq62dq" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="cloxn85ca0005xwcx4qt31xh3" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
