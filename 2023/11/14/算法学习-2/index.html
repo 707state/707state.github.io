@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法学习-2 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="动态规划动态规划的核心是状态之间的转移，也就是当前状态能否从前面的状态转移过来。例题1：01背包n个物品，w,v为其重量和价值的序列，W为总质量上限，求最多能装多大价值的物品。这道题有一个特点，就是他和求一个序列中的数能否组成一个目标数相同。所以这个题可以用深度优先搜索来算。在搜索过程中，有能放和不能放入背包两种情况，可以放入背包有挑选和不挑选两种情况。如果要放入，则需要减少重量，并加上价值。这种">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法学习-2">
+<meta property="og:url" content="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="动态规划动态规划的核心是状态之间的转移，也就是当前状态能否从前面的状态转移过来。例题1：01背包n个物品，w,v为其重量和价值的序列，W为总质量上限，求最多能装多大价值的物品。这道题有一个特点，就是他和求一个序列中的数能否组成一个目标数相同。所以这个题可以用深度优先搜索来算。在搜索过程中，有能放和不能放入背包两种情况，可以放入背包有挑选和不挑选两种情况。如果要放入，则需要减少重量，并加上价值。这种">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-14T01:17:18.000Z">
+<meta property="article:modified_time" content="2023-11-14T04:29:00.490Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法学习-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" class="article-date">
+  <time class="dt-published" datetime="2023-11-14T01:17:18.000Z" itemprop="datePublished">2023-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法学习-2
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>动态规划的核心是状态之间的转移，也就是当前状态能否从前面的状态转移过来。<br>例题1：01背包<br>n个物品，w,v为其重量和价值的序列，W为总质量上限，求最多能装多大价值的物品。<br>这道题有一个特点，就是他和求一个序列中的数能否组成一个目标数相同。所以这个题可以用深度优先搜索来算。在搜索过程中，有能放和不能放入背包两种情况，可以放入背包有挑选和不挑选两种情况。<br>如果要放入，则需要减少重量，并加上价值。<br>这种情况势必带来大量重复计算，因此可以用记忆数组做剪枝，在本题中这个数组为dp[n][W];<br>上面是dfs的方法，dfs法很容易想到，因为他的思路是固定的，就是遍历所有的情况。<br>接下来引入dp。<br>回想一下刚才的过程，可以将这个代码分解成两部分，也就是装上和不装。<br>$$ dp[n][j]&#x3D;0 $$<br>$$dp[i][j]&#x3D;\begin{cases}<br>    dp[i+1][j] &amp; j&#x3D;w[i]\<br>    \max\ {dp[i+1][j],dp[i+1][j-w[i]]+v[i]} &amp; j&gt;&#x3D;w[i]<br>\end{cases} $$<br>这样就可以从循环入手了，最后的结果子dp[0][W]处。这里的dp看起来是反向的，因为这里的dp定义是从第i个物品开始挑选总重小于j是价值最大值。<br>按照dp[i+1][j]为0到i这i+1个物品中选出总重量不超过j的物品时总价值的最大值定义，就可以变为正向的dp。</p>
+<p>例题2：最长公共子序列<br>现在可以仿照上面的做法，给出dp的定义了。<br>定义dp[i][j]为$s_1s_2…s_i和t_1…t_j$之间的最长公共子序列长度，需要讨论的就是$s_{i+1}和t_{i+1}$是否相同，从而得出状态转移。</p>
+<p>例题3：完全背包问题<br> 01背包只能选择一个或者0，完全背包可以选择多次。<br> dp[i+1][j]表示前i个装入重量不超过j的物品的价值最大值。<br> 其中需要引入第三层循环，用来计算放进去多少个物品能取到最大值。<br>这里可以优化。<br>假定在dp[i][j]时，如果能放入大于等于1个的物体，则存在这样的情况：<br>如果这个地方能放入k个物体，即dp[i][j]&#x3D;max(dp[i-1][j],d[i-1][j-k*w[i]]+v[i]*k)，<br>这和放入在dp[i][j-w[i]]处放入k-1个物品的情况是相同的，也就是说存在重复计算的情况。<br>正因这样，可以进行优化。<br>优化后的情形和之前的计算形式上几乎一致。</p>
+<p>进一步优化，可以用一维的dp进行处理。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" data-id="cloxu5zuc0006u0cxgsth2dk0" data-title="算法学习-2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法学习-1</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/">算法学习-2</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/">算法学习-1</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/">cpp函数式编程(3)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/">cpp函数式编程(2)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/">数据结构(1)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
