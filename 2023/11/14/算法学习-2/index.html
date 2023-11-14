@@ -14,7 +14,7 @@
 <meta property="og:description" content="动态规划动态规划的核心是状态之间的转移，也就是当前状态能否从前面的状态转移过来。例题1：01背包n个物品，w,v为其重量和价值的序列，W为总质量上限，求最多能装多大价值的物品。这道题有一个特点，就是他和求一个序列中的数能否组成一个目标数相同。所以这个题可以用深度优先搜索来算。在搜索过程中，有能放和不能放入背包两种情况，可以放入背包有挑选和不挑选两种情况。如果要放入，则需要减少重量，并加上价值。这种">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-14T01:17:18.000Z">
-<meta property="article:modified_time" content="2023-11-14T04:29:00.490Z">
+<meta property="article:modified_time" content="2023-11-14T10:50:20.782Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -101,11 +101,14 @@
 <p>例题2：最长公共子序列<br>现在可以仿照上面的做法，给出dp的定义了。<br>定义dp[i][j]为$s_1s_2…s_i和t_1…t_j$之间的最长公共子序列长度，需要讨论的就是$s_{i+1}和t_{i+1}$是否相同，从而得出状态转移。</p>
 <p>例题3：完全背包问题<br> 01背包只能选择一个或者0，完全背包可以选择多次。<br> dp[i+1][j]表示前i个装入重量不超过j的物品的价值最大值。<br> 其中需要引入第三层循环，用来计算放进去多少个物品能取到最大值。<br>这里可以优化。<br>假定在dp[i][j]时，如果能放入大于等于1个的物体，则存在这样的情况：<br>如果这个地方能放入k个物体，即dp[i][j]&#x3D;max(dp[i-1][j],d[i-1][j-k*w[i]]+v[i]*k)，<br>这和放入在dp[i][j-w[i]]处放入k-1个物品的情况是相同的，也就是说存在重复计算的情况。<br>正因这样，可以进行优化。<br>优化后的情形和之前的计算形式上几乎一致。</p>
 <p>进一步优化，可以用一维的dp进行处理。</p>
+<p>例题4：多重部分和<br>相当于k和问题的拓展，之前是只需要0&#x2F;1个数，现在是n个数<br>我们仿照完全背包问题给出dp：<br>dp[i+1][j]表示前i种数字能否加成j</p>
+<p>例题5：打家劫舍<br>小偷如果偷相邻的两个房屋则会触发警报，求不触发警报的情况下能偷到的最大金额。<br>典型的动态规划，定义dp[i+1]表示从0到i的最大金额，那么dp[i+1]应该会与dp[i]和dp[i-1]有关，因为小偷要从前面的两个房屋之内转移才能拿到最大金额。如果偷了dp[i]则不能加上i+1处的金额，因此转移方程$dp[i+1]&#x3D;max(dp[i],dp[i-1]+v[i])$这里要注意dp[i]的语义。</p>
+<p>例题6：最长递增子序列<br>定义dp[i]为以nums[i]结尾的最长递增列的长度，那么dp[i]的上升子序列就应该是：<br>1.只包含nums[i];<br>2.满足$j&lt; i$且$a_j&lt;a_i$的$a_j$为结尾的序列之后</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" data-id="cloxu5zuc0006u0cxgsth2dk0" data-title="算法学习-2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" data-id="cloy7ptc80004b4cx65mvhdwc" data-title="算法学习-2" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       

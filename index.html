@@ -99,11 +99,14 @@
 <p>例题2：最长公共子序列<br>现在可以仿照上面的做法，给出dp的定义了。<br>定义dp[i][j]为$s_1s_2…s_i和t_1…t_j$之间的最长公共子序列长度，需要讨论的就是$s_{i+1}和t_{i+1}$是否相同，从而得出状态转移。</p>
 <p>例题3：完全背包问题<br> 01背包只能选择一个或者0，完全背包可以选择多次。<br> dp[i+1][j]表示前i个装入重量不超过j的物品的价值最大值。<br> 其中需要引入第三层循环，用来计算放进去多少个物品能取到最大值。<br>这里可以优化。<br>假定在dp[i][j]时，如果能放入大于等于1个的物体，则存在这样的情况：<br>如果这个地方能放入k个物体，即dp[i][j]&#x3D;max(dp[i-1][j],d[i-1][j-k*w[i]]+v[i]*k)，<br>这和放入在dp[i][j-w[i]]处放入k-1个物品的情况是相同的，也就是说存在重复计算的情况。<br>正因这样，可以进行优化。<br>优化后的情形和之前的计算形式上几乎一致。</p>
 <p>进一步优化，可以用一维的dp进行处理。</p>
+<p>例题4：多重部分和<br>相当于k和问题的拓展，之前是只需要0&#x2F;1个数，现在是n个数<br>我们仿照完全背包问题给出dp：<br>dp[i+1][j]表示前i种数字能否加成j</p>
+<p>例题5：打家劫舍<br>小偷如果偷相邻的两个房屋则会触发警报，求不触发警报的情况下能偷到的最大金额。<br>典型的动态规划，定义dp[i+1]表示从0到i的最大金额，那么dp[i+1]应该会与dp[i]和dp[i-1]有关，因为小偷要从前面的两个房屋之内转移才能拿到最大金额。如果偷了dp[i]则不能加上i+1处的金额，因此转移方程$dp[i+1]&#x3D;max(dp[i],dp[i-1]+v[i])$这里要注意dp[i]的语义。</p>
+<p>例题6：最长递增子序列<br>定义dp[i]为以nums[i]结尾的最长递增列的长度，那么dp[i]的上升子序列就应该是：<br>1.只包含nums[i];<br>2.满足$j&lt; i$且$a_j&lt;a_i$的$a_j$为结尾的序列之后</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" data-id="cloxu5zuc0006u0cxgsth2dk0" data-title="算法学习-2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" data-id="cloy7ptc80004b4cx65mvhdwc" data-title="算法学习-2" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -153,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="cloxu5zub0005u0cx439r0ahh" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="cloy7ptc80003b4cx3he31pa8" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -201,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" data-id="cloxu5zu20000u0cxfz0c5li1" data-title="cpp函数式编程(3)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" data-id="cloy7ptc30001b4cx1i2lcbu4" data-title="cpp函数式编程(3)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -244,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="cloxu5zu60001u0cxg5aoacqn" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="cloy7ptc00000b4cx3d48h642" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -289,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="cloxu5zub0004u0cxgxi7acuq" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="cloy7ptc50002b4cx1yzphtm6" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -342,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="cloxu5zud0007u0cxdu51507o" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="cloy7ptc90005b4cx6ucv60pk" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -386,7 +389,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="cloxu5zua0003u0cxcup2cqkc" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="cloy7ptca0006b4cx19fg5faw" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -437,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/hello-world/" data-id="cloxu5zu80002u0cxf3kldlpn" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/09/10/hello-world/" data-id="cloy7ptca0007b4cxdvm8bjza" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
