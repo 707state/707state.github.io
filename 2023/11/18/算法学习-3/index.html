@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>编译原理(1) | Hexo</title>
+  <title>算法学习-3 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="过程源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成  设计确保语法没有歧义（避免二义性）  词法分析器 1while i &lt; 10 &amp;#123; 这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉">
+  <meta name="description" content="书接上篇，继续动态规划。有关计数问题的DP例题1：有n个无区别的物品，将他们划分成不超过m组，求划分方法数模M的余数.（n的m划分）举个例子，4个物品，放在3组以内，有112，22，13，4四种方法。 定义dp[i][j]为j的i划分的总数。这个题既然是动态规划，就应该考虑状态转移。怎么转移呢？不妨先考虑最简单的情形。当n等于1时，不管m多少，dp[1][m]&#x3D;1，只有一种方法。当m&amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编译原理(1)">
-<meta property="og:url" content="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="算法学习-3">
+<meta property="og:url" content="http://example.com/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="过程源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成  设计确保语法没有歧义（避免二义性）  词法分析器 1while i &lt; 10 &amp;#123; 这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉">
+<meta property="og:description" content="书接上篇，继续动态规划。有关计数问题的DP例题1：有n个无区别的物品，将他们划分成不超过m组，求划分方法数模M的余数.（n的m划分）举个例子，4个物品，放在3组以内，有112，22，13，4四种方法。 定义dp[i][j]为j的i划分的总数。这个题既然是动态规划，就应该考虑状态转移。怎么转移呢？不妨先考虑最简单的情形。当n等于1时，不管m多少，dp[1][m]&#x3D;1，只有一种方法。当m&amp;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-09-10T23:16:59.000Z">
-<meta property="article:modified_time" content="2023-09-10T23:46:33.265Z">
+<meta property="article:published_time" content="2023-11-18T02:36:26.000Z">
+<meta property="article:modified_time" content="2023-11-18T04:39:06.456Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -75,10 +75,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-编译原理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-算法学习-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" class="article-date">
-  <time class="dt-published" datetime="2023-09-10T23:16:59.000Z" itemprop="datePublished">2023-09-11</time>
+    <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-18T02:36:26.000Z" itemprop="datePublished">2023-11-18</time>
 </a>
     
   </div>
@@ -89,7 +89,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      编译原理(1)
+      算法学习-3
     </h1>
   
 
@@ -97,26 +97,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>过程<br>源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成</p>
-</li>
-<li><p>设计<br>确保语法没有歧义（避免二义性）</p>
-</li>
-<li><p>词法分析器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while i &lt; 10 &#123;</span><br></pre></td></tr></table></figure>
-<p>这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉</p>
-<p>实际的单词则是Token类的子类，假如要设计一个有标识符，整形字面量和字符串字面量的语言，就要定义对应的Token类的子类，并让每种子类覆盖Token类的isIndentifier（标识符则为真），isNumber（数字则为真），isString（字符串则为真），还应有EOL和EOF作<br>为结尾的标志</p>
-<p>设计词法分析器（Lexer）时，可以用正则表达式，在Java中可以将Lexer定义为一个类，包含read和peek两个方法。read用于从源代码头部逐一获取单词，调用read将会返回一个新的单词；peek方法用于预读，peek(i)将返回read方法即将返回的单词之后的第i个单词，当参数为0时，与read作用相同</p>
-<p>实现peek需要一个ArrayList对象，词法分析器读取代码并获取单词后这些单词暂时保存在一个名为queue的ArrayList对象中，read方法会将单词从其中删除</p>
-<p>readline方法：从一行读取单词，用正则匹配，匹配完成后，词法分析器会用group方法获取每个括号对应的子字符串，end方法用于取得匹配部分的结束位置。readline和addToken时核心方法</p>
-<p>其他工具，如JFlex，ANTLR等可以自动生成词法分析器</p>
-</li>
-</ul>
+        <h2 id="书接上篇，继续动态规划。有关计数问题的DP"><a href="#书接上篇，继续动态规划。有关计数问题的DP" class="headerlink" title=" 书接上篇，继续动态规划。有关计数问题的DP"></a> 书接上篇，继续动态规划。<br>有关计数问题的DP</h2><p>例题1：有n个无区别的物品，将他们划分成不超过m组，求划分方法数模M的余数.（n的m划分）<br>举个例子，4个物品，放在3组以内，有112，22，13，4四种方法。</p>
+<p>定义dp[i][j]为j的i划分的总数。这个题既然是动态规划，就应该考虑状态转移。<br>怎么转移呢？不妨先考虑最简单的情形。<br>当n等于1时，不管m多少，dp[1][m]&#x3D;1，只有一种方法。<br>当m&#x3D;1时，不管n多少，只有一种方法，也就是dp[n][1]&#x3D;1。<br>向外扩展，当n&#x3D;m时，必然存在一种分法，就是n自身，因此可以视作dp[n][n]&#x3D;1+dp[n][n-1]，其中n只有一种分法使得该数不小于n，因此剩下的分法为dp[n][n-1]。<br>当$n&lt;m$时，由于n不能分成m大，最大也只有n，所以dp[n][m]&#x3D;dp[n][n]。<br>重点时$n&gt;m$的情况。<br>如果划分里有m，那么剩下的那一部分的和为n-m，因此其划分为dp[n-m][m]。<br>如果不包括m，那么划分中所有值都比m小，即n的(m-1)划分，个数为dp[n][m-1]。</p>
+<p>例题2：多重集合组合数<br>n种物品，第i种有$a_i$个。不同种可以区分，同种不能区分。从这些物品取出m个，有多少种取法。<br>定义dp[i+1][j]为前i种物品取出j个的组合数总数。从前i种取出j个，可以从前i-1种物品取出j-k个，再从第i个物品取出k个添加进来，从而有<br>$$dp[i+1][j]&#x3D;\sum_{k&#x3D;0}^{min(j,a[i])} dp[i][j-k] $$</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clp2eami40007tscxdn2e9amx" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/" data-id="clp3k7su60000c8cxdng708j9" data-title="算法学习-3" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -126,19 +114,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          数据结构(1)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/11/17/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E7%AC%AC%E4%BA%8C%E6%AC%A1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">cpp函数式编程</div>
+      <div class="article-nav-title">实验课第二次</div>
     </a>
   
 </nav>
