@@ -73,6 +73,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-该认真学习vue了day1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/" class="article-date">
+  <time class="dt-published" datetime="2023-11-18T07:51:48.000Z" itemprop="datePublished">2023-11-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以问题的形式进行学习，前端就是拿来用的。</p>
+<p>Q1: 怎样用Vue创建一个应用？<br>A1: Vue.createApp()是程序的入口，创建之后挂载到对应的div上。  </p>
+<p>Q2: vue条件控制是怎样的？<br>A2: 再每一个标签里面都可以用v-if&#x3D;””，里面是一段JS代码用于判定条件。</p>
+<p>Q3: Vue怎样监听鼠标事件？<br>A3: Vue3提供了@mouseenter. @mouseleave, @mousemove等，可以用于处理不同的鼠标事件。</p>
+<p>Q4: 有一段动态更新的列表，怎样把他显示出来呢？<br>A4: 可以在再ul里面用v-for，然后就是常规的JS代码了。</p>
+<p>Q5： 如果想要放置一个链接应该怎么做？<br>A5: 你既可以用常规的html的链接，但这样就不能动态刷新了，也可以选择v-bind:href&#x3D;”item”，注意一下这里的item不需要加上两层花括号。</p>
+<p>Q6: Vue里面都包括什么？<br>A6: App.vue包括Header.vue, Article.vue(content.vue, component.vue), Footer.vue。。</p>
+<p>Q7: App.vue的结构是什么样？或者说component的结构是什么样？<br>A7: template, script, style三个部分，其中component就是描述每一个组件的单元。</p>
+<p>Q8: 如何把自己编写的component引入到项目中呢？<br>A8： import这个vue文件，再export中声明到components里面，就可以作为类似tag来使用。</p>
+<p>Q9：每个组件的style应该怎么处理？<br>A9：最好在每一个component的style后加上scoped，避免对全局的影响。</p>
+<p>Props Part<br>Q10: 为什么用props？<br>A10：提高重用性。</p>
+<p>Q11：props报错怎么办呢？<br>A11：首先看script是不是加了setup，去掉他。</p>
+<p>Q12：使用props时候的参数绑定和解绑？<br>A12：使用props可以在标签内用:title&#x3D;’title’的形式来绑一个元素。</p>
+<p>Q13: Props可以用来干什么？<br>Q14：可以用于条件渲染，比如用props来传递一个参数，只有当参数特定时才能使用对应的css style或者是js代码。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/" data-id="clp5ntrga00001ccx9wpzb9rb" data-title="该认真学习vue了day1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法学习-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/" class="article-date">
@@ -516,6 +568,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/">算法学习-3</a>
           </li>
         
@@ -529,10 +585,6 @@
         
           <li>
             <a href="/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/">算法学习-1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/">cpp函数式编程(3)</a>
           </li>
         
       </ul>
