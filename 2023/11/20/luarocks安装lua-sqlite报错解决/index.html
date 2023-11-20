@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>数据结构(1) | Hexo</title>
+  <title>luarocks安装lua-sqlite报错解决 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="渐进时间复杂度$$O(n)表示上限o(n)表示下限$$$$T_1(n)+T_2(n)&#x3D;O(Max(f(n),g(n)))$$$$T_1(n)\times T_2(n)&#x3D;O(f(n)g(n))$$前者适用于顺序语句，后者适用于嵌套&#x2F;多层嵌套循环语句  $$如果有if else语句，要注意判断if层面的时间复杂度是否为常数，else同理$$  算法设计：自顶向下的思考$">
+  <meta name="description" content="luarocks安装是从源代码安装，因此其可能会包含一些并非系统自带的头文件。luasocket为例，编译时如果出现，”lua.h”的缺失，则大概率是再lua路径下没有其源文件，最简单的方法是下载源代码，解压到该路径下。 luasql同理，你需要先把sqlite的源代码下载好，为其设置SQLITE_DIR和SQLITE_HOME，然后才能编译成功。 有些解决方法是下载xxx-dev之类的，我没有成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构(1)">
-<meta property="og:url" content="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/index.html">
+<meta property="og:title" content="luarocks安装lua-sqlite报错解决">
+<meta property="og:url" content="http://example.com/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="渐进时间复杂度$$O(n)表示上限o(n)表示下限$$$$T_1(n)+T_2(n)&#x3D;O(Max(f(n),g(n)))$$$$T_1(n)\times T_2(n)&#x3D;O(f(n)g(n))$$前者适用于顺序语句，后者适用于嵌套&#x2F;多层嵌套循环语句  $$如果有if else语句，要注意判断if层面的时间复杂度是否为常数，else同理$$  算法设计：自顶向下的思考$">
+<meta property="og:description" content="luarocks安装是从源代码安装，因此其可能会包含一些并非系统自带的头文件。luasocket为例，编译时如果出现，”lua.h”的缺失，则大概率是再lua路径下没有其源文件，最简单的方法是下载源代码，解压到该路径下。 luasql同理，你需要先把sqlite的源代码下载好，为其设置SQLITE_DIR和SQLITE_HOME，然后才能编译成功。 有些解决方法是下载xxx-dev之类的，我没有成">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-09-11T01:51:24.000Z">
-<meta property="article:modified_time" content="2023-09-11T04:00:01.916Z">
+<meta property="article:published_time" content="2023-11-20T13:29:51.000Z">
+<meta property="article:modified_time" content="2023-11-20T13:33:28.849Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -75,10 +75,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-数据结构-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-luarocks安装lua-sqlite报错解决" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" class="article-date">
-  <time class="dt-published" datetime="2023-09-11T01:51:24.000Z" itemprop="datePublished">2023-09-11</time>
+    <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-20T13:29:51.000Z" itemprop="datePublished">2023-11-20</time>
 </a>
     
   </div>
@@ -89,7 +89,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      数据结构(1)
+      luarocks安装lua-sqlite报错解决
     </h1>
   
 
@@ -97,18 +97,14 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <ul>
-<li>渐进时间复杂度<br>$$<br>O(n)表示上限<br>o(n)表示下限<br>$$<br>$$T_1(n)+T_2(n)&#x3D;O(Max(f(n),g(n)))$$<br>$$T_1(n)\times T_2(n)&#x3D;O(f(n)g(n))$$<br>前者适用于顺序语句，后者适用于嵌套&#x2F;多层嵌套循环语句</li>
-</ul>
-<p>$$如果有if else语句，要注意判断if层面的时间复杂度是否为常数，else同理<br>$$</p>
-<ul>
-<li>算法设计：自顶向下的思考<br>$$汉诺塔的例子$$<br>$$最大连续子数组（不用动态规划的方法）（考虑最大的序列的性质，两端必须大于零）$$</li>
-</ul>
+        <p>luarocks安装是从源代码安装，因此其可能会包含一些并非系统自带的头文件。<br>luasocket为例，编译时如果出现，”lua.h”的缺失，则大概率是再lua路径下没有其源文件，最简单的方法是下载源代码，解压到该路径下。</p>
+<p>luasql同理，你需要先把sqlite的源代码下载好，为其设置SQLITE_DIR和SQLITE_HOME，然后才能编译成功。</p>
+<p>有些解决方法是下载xxx-dev之类的，我没有成功，所以不用这种方法。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="clp2eamhy0003tscx2hpr1mj0" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" data-id="clp6y6kie00003scx0fbubmhh" data-title="luarocks安装lua-sqlite报错解决" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -118,19 +114,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          cpp函数式编程(2)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">编译原理(1)</div>
+      <div class="article-nav-title">该认真学习vue了day1</div>
     </a>
   
 </nav>

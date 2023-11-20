@@ -73,6 +73,47 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-luarocks安装lua-sqlite报错解决" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-20T13:29:51.000Z" itemprop="datePublished">2023-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">luarocks安装lua-sqlite报错解决</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>luarocks安装是从源代码安装，因此其可能会包含一些并非系统自带的头文件。<br>luasocket为例，编译时如果出现，”lua.h”的缺失，则大概率是再lua路径下没有其源文件，最简单的方法是下载源代码，解压到该路径下。</p>
+<p>luasql同理，你需要先把sqlite的源代码下载好，为其设置SQLITE_DIR和SQLITE_HOME，然后才能编译成功。</p>
+<p>有些解决方法是下载xxx-dev之类的，我没有成功，所以不用这种方法。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" data-id="clp6y6kie00003scx0fbubmhh" data-title="luarocks安装lua-sqlite报错解决" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-该认真学习vue了day1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/" class="article-date">
@@ -493,51 +534,12 @@
 
 
   
-    <article id="post-cpp函数式编程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" class="article-date">
-  <time class="dt-published" datetime="2023-09-10T09:56:42.000Z" itemprop="datePublished">2023-09-10</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">cpp函数式编程</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>stl容器<br> 函数式编程的用处应该是尽可能减少制造变量（？）<br> 比如说用std::count_if的方法来替代循环+判断（尽管后者对于初学者更为友好），用std::accumulate来取代循环和运算，用lambda替代命令式的函数…<br>写代码应该注重组合来取代繁琐的工作。</li>
-<li>举个例子<br><a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/1649735374821068800/exam/problems/1649746307790151680?type=7&page=0">pta堆宝塔</a>  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using std::vector,std::cin,std::cout;</span><br><span class="line">int main()&#123;</span><br><span class="line">    int n;</span><br><span class="line">    cin&gt;&gt;n; </span><br><span class="line">    vector&lt;int&gt; a,b;</span><br><span class="line">    vector&lt;vector&lt;int&gt;&gt; ans;</span><br><span class="line">    while(n--)&#123;</span><br><span class="line">        int x;cin&gt;&gt;x;</span><br><span class="line">        if(a.empty()) a.push_back(x);</span><br><span class="line">        else if(x&lt;a.back()) a.push_back(x);</span><br><span class="line">        else if(b.empty()||x&gt;b.back()) b.push_back(x);</span><br><span class="line">        else&#123;</span><br><span class="line">            ans.push_back(std::move(a));</span><br><span class="line">            while (!b.empty()&amp;&amp;x&lt;b.back())&#123;</span><br><span class="line">                a.push_back(b.back());</span><br><span class="line">                b.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            a.push_back(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!a.empty()) ans.push_back(std::move(a));</span><br><span class="line">    if(!b.empty()) ans.push_back(std::move(b));</span><br><span class="line">    auto max_h=*std::max_element(</span><br><span class="line">        ans.begin(),ans.end(),</span><br><span class="line">        [](vector&lt;int&gt; a,vector&lt;int&gt; b)&#123;</span><br><span class="line">            return a.size()&lt;b.size();</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">    cout&lt;&lt;ans.size()&lt;&lt;&quot; &quot;&lt;&lt;max_h.size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-这个算不上函数式，但移动语义可以减少开销（代码量）。和函数式沾边的是lambda，这个例子真是糟糕啊</li>
-<li>关于教材<br>看一看大佬写的《cpp函数式编程》还是很有收获的，大佬们的思想还是太高深了</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" data-id="clp2eamhv0001tscxhxtebta2" data-title="cpp函数式编程" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -568,6 +570,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">luarocks安装lua-sqlite报错解决</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
           </li>
         
@@ -581,10 +587,6 @@
         
           <li>
             <a href="/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/">算法学习-2</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/">算法学习-1</a>
           </li>
         
       </ul>
