@@ -73,6 +73,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-《深入解析gcc》略读的一些理解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" class="article-date">
+  <time class="dt-published" datetime="2023-11-22T11:29:34.000Z" itemprop="datePublished">2023-11-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">《深入解析gcc》略读的一些理解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本着多读多看的精神读了一下这本不薄的书，还是很难理解啊。</p>
+<p>或许在深入学习编译原理以后才能更深的理解其中的知识吧。</p>
+<p>还是说一说编译流程：源文件(gcc可以支持的语言)$\rightarrow$AST&#x2F;GENERIC(抽象语法树)<br>$\rightarrow$ GIMPLE(gnu SIMPLE，一种中间形式，这个地方与目标平台无关，用于进行pass，编译优化等)<br>$\rightarrow$ RTL(寄存器语言，函数式类似于LISP，insn在这里对应翻译到目标平台)</p>
+<p>gcc在虽然支持多种语言的前端，但是直到GIMPLE才是完全和语言无关的，这意味着想要利用gcc作为编译后端，就必须从目标语言到AST到GIMPLE都实现，这带来了很大难度。</p>
+<p>如果24年的毕升杯我有能力完成Rust的完整项目，我愿意用Rust，否则我选择Java。LLVM对我还是缺少了一点实用价值。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" data-id="clp9oy4d20000t4cxd8kig0w1" data-title="《深入解析gcc》略读的一些理解" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-luarocks安装lua-sqlite报错解决" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/" class="article-date">
@@ -481,59 +524,6 @@
 
 
   
-    <article id="post-编译原理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" class="article-date">
-  <time class="dt-published" datetime="2023-09-10T23:16:59.000Z" itemprop="datePublished">2023-09-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理(1)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>过程<br>源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成</p>
-</li>
-<li><p>设计<br>确保语法没有歧义（避免二义性）</p>
-</li>
-<li><p>词法分析器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while i &lt; 10 &#123;</span><br></pre></td></tr></table></figure>
-<p>这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉</p>
-<p>实际的单词则是Token类的子类，假如要设计一个有标识符，整形字面量和字符串字面量的语言，就要定义对应的Token类的子类，并让每种子类覆盖Token类的isIndentifier（标识符则为真），isNumber（数字则为真），isString（字符串则为真），还应有EOL和EOF作<br>为结尾的标志</p>
-<p>设计词法分析器（Lexer）时，可以用正则表达式，在Java中可以将Lexer定义为一个类，包含read和peek两个方法。read用于从源代码头部逐一获取单词，调用read将会返回一个新的单词；peek方法用于预读，peek(i)将返回read方法即将返回的单词之后的第i个单词，当参数为0时，与read作用相同</p>
-<p>实现peek需要一个ArrayList对象，词法分析器读取代码并获取单词后这些单词暂时保存在一个名为queue的ArrayList对象中，read方法会将单词从其中删除</p>
-<p>readline方法：从一行读取单词，用正则匹配，匹配完成后，词法分析器会用group方法获取每个括号对应的子字符串，end方法用于取得匹配部分的结束位置。readline和addToken时核心方法</p>
-<p>其他工具，如JFlex，ANTLR等可以自动生成词法分析器</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clp2eami40007tscxdn2e9amx" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -570,6 +560,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">《深入解析gcc》略读的一些理解</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">luarocks安装lua-sqlite报错解决</a>
           </li>
         
@@ -583,10 +577,6 @@
         
           <li>
             <a href="/2023/11/17/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E7%AC%AC%E4%BA%8C%E6%AC%A1/">实验课第二次</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/">算法学习-2</a>
           </li>
         
       </ul>
