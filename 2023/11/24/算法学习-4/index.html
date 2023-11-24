@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>编译原理(1) | Hexo</title>
+  <title>算法学习-4 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="过程源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成  设计确保语法没有歧义（避免二义性）  词法分析器 1while i &lt; 10 &amp;#123; 这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉">
+  <meta name="description" content="加工数据的数据结构堆和二叉搜索树略过，直接从并查集开始。并查集的核心思想是：查询与合并（查询两个点是否在同一个集合中）（将两个不在同一个集合的点进行合并） 有两种设计方法：基于id和基于parent。按秩合并：结点总数较小的数的根节点指向节点总数较大的树的根节点。路径压缩：两步一跳（把当前结点指向它的父亲节点的父亲节点）或者完全压缩（把查询节点到根节点沿途经过的节点都指向根节点）。 例题1：等式的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编译原理(1)">
-<meta property="og:url" content="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="算法学习-4">
+<meta property="og:url" content="http://example.com/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="过程源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成  设计确保语法没有歧义（避免二义性）  词法分析器 1while i &lt; 10 &amp;#123; 这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉">
+<meta property="og:description" content="加工数据的数据结构堆和二叉搜索树略过，直接从并查集开始。并查集的核心思想是：查询与合并（查询两个点是否在同一个集合中）（将两个不在同一个集合的点进行合并） 有两种设计方法：基于id和基于parent。按秩合并：结点总数较小的数的根节点指向节点总数较大的树的根节点。路径压缩：两步一跳（把当前结点指向它的父亲节点的父亲节点）或者完全压缩（把查询节点到根节点沿途经过的节点都指向根节点）。 例题1：等式的">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-09-10T23:16:59.000Z">
-<meta property="article:modified_time" content="2023-09-10T23:46:33.265Z">
+<meta property="article:published_time" content="2023-11-24T01:35:18.000Z">
+<meta property="article:modified_time" content="2023-11-24T05:17:37.053Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -75,10 +75,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-编译原理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-算法学习-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" class="article-date">
-  <time class="dt-published" datetime="2023-09-10T23:16:59.000Z" itemprop="datePublished">2023-09-11</time>
+    <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/" class="article-date">
+  <time class="dt-published" datetime="2023-11-24T01:35:18.000Z" itemprop="datePublished">2023-11-24</time>
 </a>
     
   </div>
@@ -89,7 +89,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      编译原理(1)
+      算法学习-4
     </h1>
   
 
@@ -97,26 +97,17 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>过程<br>源代码 $$\downarrow$$词法分析$$\downarrow$$单词排列$$\downarrow$$语法分析$$\downarrow$$抽象语法树$$\downarrow$$执行&#x2F;代码生成</p>
-</li>
-<li><p>设计<br>确保语法没有歧义（避免二义性）</p>
-</li>
-<li><p>词法分析器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">while i &lt; 10 &#123;</span><br></pre></td></tr></table></figure>
-<p>这样一句话在被分析时，会生成五个单词(Token) ，这一阶段会将注释和空白符忽略掉</p>
-<p>实际的单词则是Token类的子类，假如要设计一个有标识符，整形字面量和字符串字面量的语言，就要定义对应的Token类的子类，并让每种子类覆盖Token类的isIndentifier（标识符则为真），isNumber（数字则为真），isString（字符串则为真），还应有EOL和EOF作<br>为结尾的标志</p>
-<p>设计词法分析器（Lexer）时，可以用正则表达式，在Java中可以将Lexer定义为一个类，包含read和peek两个方法。read用于从源代码头部逐一获取单词，调用read将会返回一个新的单词；peek方法用于预读，peek(i)将返回read方法即将返回的单词之后的第i个单词，当参数为0时，与read作用相同</p>
-<p>实现peek需要一个ArrayList对象，词法分析器读取代码并获取单词后这些单词暂时保存在一个名为queue的ArrayList对象中，read方法会将单词从其中删除</p>
-<p>readline方法：从一行读取单词，用正则匹配，匹配完成后，词法分析器会用group方法获取每个括号对应的子字符串，end方法用于取得匹配部分的结束位置。readline和addToken时核心方法</p>
-<p>其他工具，如JFlex，ANTLR等可以自动生成词法分析器</p>
-</li>
-</ul>
+        <h2 id="加工数据的数据结构"><a href="#加工数据的数据结构" class="headerlink" title="加工数据的数据结构"></a>加工数据的数据结构</h2><p>堆和二叉搜索树略过，直接从并查集开始。<br>并查集的核心思想是：查询与合并（查询两个点是否在同一个集合中）（将两个不在同一个集合的点进行合并）</p>
+<p>有两种设计方法：基于id和基于parent。<br>按秩合并：结点总数较小的数的根节点指向节点总数较大的树的根节点。<br>路径压缩：两步一跳（把当前结点指向它的父亲节点的父亲节点）或者完全压缩（把查询节点到根节点沿途经过的节点都指向根节点）。</p>
+<p>例题1：等式的可解性<br>给定n个方程如“a&#x3D;&#x3D;b””a!&#x3D;b”这样的形式，判定这些等式是否可解。<br>由于符号只有两种形式，也就是&#x3D;&#x3D;和!&#x3D;，因此只需要判断&#x3D;&#x3D;号两端的符号能否联通，查询!&#x3D;号两端是否联通即可。</p>
+<p>例题2：省份数量<br>a城市与b城市相连，b与c相连，则abc成为一个省份。给定一个二维矩阵isConnected, isConnected[i][j]表示i和j是否直接相连。<br>如果isConnected[i][j]，就把i和j进行合并，最后只需要在parent里查询哪些变量有parent[i]&#x3D;&#x3D;i的性质。</p>
+<p>例题3：情侣牵手<br>给定序列，该序列中只有数值为2i-1和2i能够成为情侣，求最少交换次数使他们成为情侣。<br>这个题目里的实际情侣对数为n&#x2F;2，
+ </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" data-id="clp2eami40007tscxdn2e9amx" data-title="编译原理(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/" data-id="clpc69ci10000ggcxbojqdaq0" data-title="算法学习-4" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -126,19 +117,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          数据结构(1)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/09/10/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">cpp函数式编程</div>
+      <div class="article-nav-title">《深入解析gcc》略读的一些理解</div>
     </a>
   
 </nav>

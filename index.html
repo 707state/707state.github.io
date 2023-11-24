@@ -73,6 +73,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法学习-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/" class="article-date">
+  <time class="dt-published" datetime="2023-11-24T01:35:18.000Z" itemprop="datePublished">2023-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/">算法学习-4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="加工数据的数据结构"><a href="#加工数据的数据结构" class="headerlink" title="加工数据的数据结构"></a>加工数据的数据结构</h2><p>堆和二叉搜索树略过，直接从并查集开始。<br>并查集的核心思想是：查询与合并（查询两个点是否在同一个集合中）（将两个不在同一个集合的点进行合并）</p>
+<p>有两种设计方法：基于id和基于parent。<br>按秩合并：结点总数较小的数的根节点指向节点总数较大的树的根节点。<br>路径压缩：两步一跳（把当前结点指向它的父亲节点的父亲节点）或者完全压缩（把查询节点到根节点沿途经过的节点都指向根节点）。</p>
+<p>例题1：等式的可解性<br>给定n个方程如“a&#x3D;&#x3D;b””a!&#x3D;b”这样的形式，判定这些等式是否可解。<br>由于符号只有两种形式，也就是&#x3D;&#x3D;和!&#x3D;，因此只需要判断&#x3D;&#x3D;号两端的符号能否联通，查询!&#x3D;号两端是否联通即可。</p>
+<p>例题2：省份数量<br>a城市与b城市相连，b与c相连，则abc成为一个省份。给定一个二维矩阵isConnected, isConnected[i][j]表示i和j是否直接相连。<br>如果isConnected[i][j]，就把i和j进行合并，最后只需要在parent里查询哪些变量有parent[i]&#x3D;&#x3D;i的性质。</p>
+<p>例题3：情侣牵手<br>给定序列，该序列中只有数值为2i-1和2i能够成为情侣，求最少交换次数使他们成为情侣。<br>这个题目里的实际情侣对数为n&#x2F;2，
+ </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/" data-id="clpc69ci10000ggcxbojqdaq0" data-title="算法学习-4" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-《深入解析gcc》略读的一些理解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/" class="article-date">
@@ -193,6 +237,8 @@
 <p>Q11：props报错怎么办呢？<br>A11：首先看script是不是加了setup，去掉他。</p>
 <p>Q12：使用props时候的参数绑定和解绑？<br>A12：使用props可以在标签内用:title&#x3D;’title’的形式来绑一个元素。</p>
 <p>Q13: Props可以用来干什么？<br>Q14：可以用于条件渲染，比如用props来传递一个参数，只有当参数特定时才能使用对应的css style或者是js代码。</p>
+<p>Q15：Life cycle hooks有什么用？<br>A15：这是用于管理每一个components的生命周期的东西，与虚拟DOM的操作有关。</p>
+<p>Q16：有哪些hook呢？<br>A16：常见的有mounted(), updated()</p>
 
       
     </div>
@@ -479,51 +525,6 @@
 
 
   
-    <article id="post-数据结构-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" class="article-date">
-  <time class="dt-published" datetime="2023-09-11T01:51:24.000Z" itemprop="datePublished">2023-09-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/">数据结构(1)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>渐进时间复杂度<br>$$<br>O(n)表示上限<br>o(n)表示下限<br>$$<br>$$T_1(n)+T_2(n)&#x3D;O(Max(f(n),g(n)))$$<br>$$T_1(n)\times T_2(n)&#x3D;O(f(n)g(n))$$<br>前者适用于顺序语句，后者适用于嵌套&#x2F;多层嵌套循环语句</li>
-</ul>
-<p>$$如果有if else语句，要注意判断if层面的时间复杂度是否为常数，else同理<br>$$</p>
-<ul>
-<li>算法设计：自顶向下的思考<br>$$汉诺塔的例子$$<br>$$最大连续子数组（不用动态规划的方法）（考虑最大的序列的性质，两端必须大于零）$$</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" data-id="clp2eamhy0003tscx2hpr1mj0" data-title="数据结构(1)" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -560,6 +561,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/">算法学习-4</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">《深入解析gcc》略读的一些理解</a>
           </li>
         
@@ -573,10 +578,6 @@
         
           <li>
             <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/">算法学习-3</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/17/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E7%AC%AC%E4%BA%8C%E6%AC%A1/">实验课第二次</a>
           </li>
         
       </ul>
