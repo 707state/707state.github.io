@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>算法学习-5 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="图论，启动！图由顶点和边组成，顶点代表对象，边表示两个对象的连接关系，顶点的集合是$V$边的集合是$E$的图记作$G&#x3D;(V,E)$ 边可以被赋予不同的属性，例如权重等。   无向图相邻顶点的序列称为路径，起点和终点重合的路径叫圈，任意两点之间有路径连接的图叫连通图，顶点连接的边数叫做这个点的度。没有圈连接的连通图叫做树，没有圈的非连通图叫做森林，一棵树的边数恰好是顶点数-1。   有向图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法学习-5">
+<meta property="og:url" content="http://example.com/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="图论，启动！图由顶点和边组成，顶点代表对象，边表示两个对象的连接关系，顶点的集合是$V$边的集合是$E$的图记作$G&#x3D;(V,E)$ 边可以被赋予不同的属性，例如权重等。   无向图相邻顶点的序列称为路径，起点和终点重合的路径叫圈，任意两点之间有路径连接的图叫连通图，顶点连接的边数叫做这个点的度。没有圈连接的连通图叫做树，没有圈的非连通图叫做森林，一棵树的边数恰好是顶点数-1。   有向图">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-11-29T11:15:31.000Z">
+<meta property="article:modified_time" content="2023-11-29T13:15:54.719Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-算法学习-5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/" class="article-date">
+  <time class="dt-published" datetime="2023-11-29T11:15:31.000Z" itemprop="datePublished">2023-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      算法学习-5
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>图论，启动！<br>图由顶点和边组成，顶点代表对象，边表示两个对象的连接关系，顶点的集合是<br>$V$<br>边的集合是<br>$E$<br>的图记作<br>$G&#x3D;(V,E)$</p>
+<p>边可以被赋予不同的属性，例如权重等。  </p>
+<h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>相邻顶点的序列称为路径，起点和终点重合的路径叫圈，任意两点之间有路径连接的图叫连通图，顶点连接的边数叫做这个点的度。<br>没有圈连接的连通图叫做树，没有圈的非连通图叫做森林，一棵树的边数恰好是顶点数-1。  </p>
+<h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>度分为入读出度，指进来的为入，指出去的为出。没有圈的有向图叫做DAG。图可以用邻接矩阵和邻接表来表示。</p>
+<h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><p>邻接矩阵两种图都可以表示，要注意下标的关系。</p>
+<h2 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h2><p>用于稀疏矩阵的储存，最简单得情况就可以用vector数组来储存，也可以用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct vertex&#123;</span><br><span class="line">    vector&lt;vectex*&gt; edge;</span><br><span class="line">&#125;;</span><br><span class="line">vertex G[max_n];</span><br></pre></td></tr></table></figure>
+<p>例题·：二分图的判定（什么是二分图详见离散数学）<br>给定n顶点的图，问是否能最多用2中颜色进行染色？<br>给定的图是无向图，因此可以用邻接矩阵表示这个图。<br>理一理思路，我们知道怎么终止判断，也就是在遍历过程中，如果一个顶点被染色为1，而他的相邻点也被染色为1，就只这不是二分图。终点就是怎么在邻接矩阵&#x2F;表里面进行dfs。因此这一题的本质是考察无向图的表示和DFS（主要是图的表示形式），只给出n的个数是不够的。<br>代码如下：</p>
+<pre><code>class Solution&#123;
+    private:
+    int n;//顶点数目
+    vector&lt;int&gt; color;//每个顶点的染色
+    bool valid;
+    static constexpr UNCOLORED=0,RED=1,GREEN=2;
+    public:
+    void dfs(int node,int c,const vector&lt;vector&lt;int&gt;&gt;&amp; graph)&#123;//dfs触发条件是node顶点没有被染色
+    color[node]=c;
+    int node_color=(c==RED)?GREEN:RED;//更改继续染色的顶点要被染的色
+    for(int neighbor:graph[node])&#123;//获取这一个点的相邻点
+        if(color[neighbor]==UNCOLORED)&#123;
+            dfs(neighbor,node_color,graph);
+            if(!valid) return;
+        &#125;else if(color[neighbor]!=node_color)&#123;//要被染色的顶点颜色与当前顶点一致
+            valid=false;
+            return;
+        &#125;
+    &#125;
+    &#125;
+    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp;graph)&#123;//graph[i]表示i顶点的相邻顶点的集合
+        n=graph.size();
+        color.resize(n,UNCOLORED);//全部顶点还没染色
+        valid=1;//空图为二分图
+        for(int i=0;i&lt;n;i++)&#123;
+            if(color[i]==UNCOLORED)&#123;//这个节点没有被染色
+                dfs(i,RED,graph);
+            &#125;
+        &#125;
+        return valid;
+    &#125;
+&#125;;
+时间复杂度是O(V+E)  
+
+例题2：最短路问题  
+给定两个顶点，求这两点之间通路的权值最小和。 
+
+补充算法：  
+1.Bellman-Ford算法
+固定一个起点，到其他所有点最短路问题。  
+基础定理1：在一个有N顶点的非负权环图中，两点之间的最短路径最多经过N-1条边。  
+基础定理2：负权环没有最短路径。  
+用动态规划求解最短路径，dp需要保留边数的信息。比如从0到2之间可能有多条边的情况，这时候要考虑边数，从而用动态规划进行转移。（有向图，有负权边）  
+Bellman-Ford算法对于动态规划的过程进行优化，降低了空间复杂度，每一层就是只需要上一次的信息，而不需要再先前的信息。  
+Bellman-Ford算法的限制：图不能包含负权环，但是可以检测负权环。
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/" data-id="clpjsr1bp0000jscx0g7zhn2h" data-title="算法学习-5" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法学习-4</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/">算法学习-4</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">《深入解析gcc》略读的一些理解</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">luarocks安装lua-sqlite报错解决</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -73,6 +73,98 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-算法学习-5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/" class="article-date">
+  <time class="dt-published" datetime="2023-11-29T11:15:31.000Z" itemprop="datePublished">2023-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>图论，启动！<br>图由顶点和边组成，顶点代表对象，边表示两个对象的连接关系，顶点的集合是<br>$V$<br>边的集合是<br>$E$<br>的图记作<br>$G&#x3D;(V,E)$</p>
+<p>边可以被赋予不同的属性，例如权重等。  </p>
+<h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>相邻顶点的序列称为路径，起点和终点重合的路径叫圈，任意两点之间有路径连接的图叫连通图，顶点连接的边数叫做这个点的度。<br>没有圈连接的连通图叫做树，没有圈的非连通图叫做森林，一棵树的边数恰好是顶点数-1。  </p>
+<h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>度分为入读出度，指进来的为入，指出去的为出。没有圈的有向图叫做DAG。图可以用邻接矩阵和邻接表来表示。</p>
+<h2 id="邻接矩阵"><a href="#邻接矩阵" class="headerlink" title="邻接矩阵"></a>邻接矩阵</h2><p>邻接矩阵两种图都可以表示，要注意下标的关系。</p>
+<h2 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h2><p>用于稀疏矩阵的储存，最简单得情况就可以用vector数组来储存，也可以用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">struct vertex&#123;</span><br><span class="line">    vector&lt;vectex*&gt; edge;</span><br><span class="line">&#125;;</span><br><span class="line">vertex G[max_n];</span><br></pre></td></tr></table></figure>
+<p>例题·：二分图的判定（什么是二分图详见离散数学）<br>给定n顶点的图，问是否能最多用2中颜色进行染色？<br>给定的图是无向图，因此可以用邻接矩阵表示这个图。<br>理一理思路，我们知道怎么终止判断，也就是在遍历过程中，如果一个顶点被染色为1，而他的相邻点也被染色为1，就只这不是二分图。终点就是怎么在邻接矩阵&#x2F;表里面进行dfs。因此这一题的本质是考察无向图的表示和DFS（主要是图的表示形式），只给出n的个数是不够的。<br>代码如下：</p>
+<pre><code>class Solution&#123;
+    private:
+    int n;//顶点数目
+    vector&lt;int&gt; color;//每个顶点的染色
+    bool valid;
+    static constexpr UNCOLORED=0,RED=1,GREEN=2;
+    public:
+    void dfs(int node,int c,const vector&lt;vector&lt;int&gt;&gt;&amp; graph)&#123;//dfs触发条件是node顶点没有被染色
+    color[node]=c;
+    int node_color=(c==RED)?GREEN:RED;//更改继续染色的顶点要被染的色
+    for(int neighbor:graph[node])&#123;//获取这一个点的相邻点
+        if(color[neighbor]==UNCOLORED)&#123;
+            dfs(neighbor,node_color,graph);
+            if(!valid) return;
+        &#125;else if(color[neighbor]!=node_color)&#123;//要被染色的顶点颜色与当前顶点一致
+            valid=false;
+            return;
+        &#125;
+    &#125;
+    &#125;
+    bool isBipartite(vector&lt;vector&lt;int&gt;&gt;&amp;graph)&#123;//graph[i]表示i顶点的相邻顶点的集合
+        n=graph.size();
+        color.resize(n,UNCOLORED);//全部顶点还没染色
+        valid=1;//空图为二分图
+        for(int i=0;i&lt;n;i++)&#123;
+            if(color[i]==UNCOLORED)&#123;//这个节点没有被染色
+                dfs(i,RED,graph);
+            &#125;
+        &#125;
+        return valid;
+    &#125;
+&#125;;
+时间复杂度是O(V+E)  
+
+例题2：最短路问题  
+给定两个顶点，求这两点之间通路的权值最小和。 
+
+补充算法：  
+1.Bellman-Ford算法
+固定一个起点，到其他所有点最短路问题。  
+基础定理1：在一个有N顶点的非负权环图中，两点之间的最短路径最多经过N-1条边。  
+基础定理2：负权环没有最短路径。  
+用动态规划求解最短路径，dp需要保留边数的信息。比如从0到2之间可能有多条边的情况，这时候要考虑边数，从而用动态规划进行转移。（有向图，有负权边）  
+Bellman-Ford算法对于动态规划的过程进行优化，降低了空间复杂度，每一层就是只需要上一次的信息，而不需要再先前的信息。  
+Bellman-Ford算法的限制：图不能包含负权环，但是可以检测负权环。
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/" data-id="clpjsr1bp0000jscx0g7zhn2h" data-title="算法学习-5" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-算法学习-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/" class="article-date">
@@ -482,49 +574,6 @@
 
 
   
-    <article id="post-cpp函数式编程-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" class="article-date">
-  <time class="dt-published" datetime="2023-09-11T22:56:47.000Z" itemprop="datePublished">2023-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/">cpp函数式编程(2)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>Curry化<br>一般的比较大小函数<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">auto greater(doublr a,double b)&#123;</span><br><span class="line">    return a&gt;b;</span><br><span class="line">&#125;</span><br><span class="line">//curried</span><br><span class="line">auto greater_currie(double a)&#123;</span><br><span class="line">    return [a](double b)&#123;</span><br><span class="line">        return a&gt;b;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-柯里化最终使函数调用的参数不大于1<br>再比如一个文件读取函数的例子<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">auto string_to_map(string a)&#123;</span><br><span class="line">    istringstream iss(a);</span><br><span class="line">    string tnp;</span><br><span class="line">    map&lt;string,int&gt; to_map;</span><br><span class="line">    while(iss&gt;&gt;tnp)&#123;</span><br><span class="line">        to_map[tnp]++;</span><br><span class="line">    &#125;</span><br><span class="line">    return to_map;</span><br><span class="line">&#125;</span><br><span class="line">auto reverse_kv(auto to_map)&#123;</span><br><span class="line">    transform(begin(to_map),end(to_map),begin(to_map),</span><br><span class="line">    [](pair&lt;string,int&gt;a)&#123;</span><br><span class="line">        return make_pair(a.second,a.first);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">auto result=reverse_kv(</span><br><span class="line">    string_to_map(</span><br><span class="line">        target</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
-<li>纯洁性<br>由于c++容易对引用进行修改，因此应该尽可能用关键字修饰确保引用对象不被修改<br>这里需要注意几个const关键字之间的联系</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="clp2eamhq0000tscxe3w2h2ss" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -561,6 +610,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/">算法学习-4</a>
           </li>
         
@@ -574,10 +627,6 @@
         
           <li>
             <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/">算法学习-3</a>
           </li>
         
       </ul>

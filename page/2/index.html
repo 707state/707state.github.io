@@ -73,6 +73,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-cpp函数式编程-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" class="article-date">
+  <time class="dt-published" datetime="2023-09-11T22:56:47.000Z" itemprop="datePublished">2023-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/">cpp函数式编程(2)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>Curry化<br>一般的比较大小函数<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">auto greater(doublr a,double b)&#123;</span><br><span class="line">    return a&gt;b;</span><br><span class="line">&#125;</span><br><span class="line">//curried</span><br><span class="line">auto greater_currie(double a)&#123;</span><br><span class="line">    return [a](double b)&#123;</span><br><span class="line">        return a&gt;b;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+柯里化最终使函数调用的参数不大于1<br>再比如一个文件读取函数的例子<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">auto string_to_map(string a)&#123;</span><br><span class="line">    istringstream iss(a);</span><br><span class="line">    string tnp;</span><br><span class="line">    map&lt;string,int&gt; to_map;</span><br><span class="line">    while(iss&gt;&gt;tnp)&#123;</span><br><span class="line">        to_map[tnp]++;</span><br><span class="line">    &#125;</span><br><span class="line">    return to_map;</span><br><span class="line">&#125;</span><br><span class="line">auto reverse_kv(auto to_map)&#123;</span><br><span class="line">    transform(begin(to_map),end(to_map),begin(to_map),</span><br><span class="line">    [](pair&lt;string,int&gt;a)&#123;</span><br><span class="line">        return make_pair(a.second,a.first);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line">auto result=reverse_kv(</span><br><span class="line">    string_to_map(</span><br><span class="line">        target</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure></li>
+<li>纯洁性<br>由于c++容易对引用进行修改，因此应该尽可能用关键字修饰确保引用对象不被修改<br>这里需要注意几个const关键字之间的联系</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" data-id="clp2eamhq0000tscxe3w2h2ss" data-title="cpp函数式编程(2)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-数据结构-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/09/11/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1/" class="article-date">
@@ -251,6 +294,10 @@
       <ul>
         
           <li>
+            <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/">算法学习-4</a>
           </li>
         
@@ -264,10 +311,6 @@
         
           <li>
             <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/">算法学习-3</a>
           </li>
         
       </ul>
