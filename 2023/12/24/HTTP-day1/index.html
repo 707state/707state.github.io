@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>HTTP/day1.md | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="网络基础TCP&#x2F;IP网络是运行在TCP&#x2F;IP协议族上的，而HTTP属于他内部的一个子集。   TCP&#x2F;IP协议族什么是协议：规定不同的硬件，不同的操作系统之间的通信的规则。TCP&#x2F;IP是各类协议族的总称。   TCP&#x2F;IP的分层管理按从顶到底分4层：应用层，传输层，网络层和链路层。作用：解耦和，便于改动内部设计。各层次作用：1.应用层：决定项用户提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP&#x2F;day1.md">
+<meta property="og:url" content="http://example.com/2023/12/24/HTTP-day1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="网络基础TCP&#x2F;IP网络是运行在TCP&#x2F;IP协议族上的，而HTTP属于他内部的一个子集。   TCP&#x2F;IP协议族什么是协议：规定不同的硬件，不同的操作系统之间的通信的规则。TCP&#x2F;IP是各类协议族的总称。   TCP&#x2F;IP的分层管理按从顶到底分4层：应用层，传输层，网络层和链路层。作用：解耦和，便于改动内部设计。各层次作用：1.应用层：决定项用户提">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-23T16:04:10.000Z">
+<meta property="article:modified_time" content="2023-12-23T16:05:14.487Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-HTTP-day1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/24/HTTP-day1/" class="article-date">
+  <time class="dt-published" datetime="2023-12-23T16:04:10.000Z" itemprop="datePublished">2023-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      HTTP/day1.md
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="网络基础TCP-IP"><a href="#网络基础TCP-IP" class="headerlink" title="网络基础TCP&#x2F;IP"></a>网络基础TCP&#x2F;IP</h1><p>网络是运行在TCP&#x2F;IP协议族上的，而HTTP属于他内部的一个子集。  </p>
+<h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP&#x2F;IP协议族"></a>TCP&#x2F;IP协议族</h2><p>什么是协议：规定不同的硬件，不同的操作系统之间的通信的规则。<br>TCP&#x2F;IP是各类协议族的总称。  </p>
+<h3 id="TCP-IP的分层管理"><a href="#TCP-IP的分层管理" class="headerlink" title="TCP&#x2F;IP的分层管理"></a>TCP&#x2F;IP的分层管理</h3><p>按从顶到底分4层：应用层，传输层，网络层和链路层。<br>作用：解耦和，便于改动内部设计。<br>各层次作用：<br>1.应用层：决定项用户提供应用服务时通信。FTP和DNS，HTTP。<br>2.传输层：对上层应用层,提供处于网络连接中的两台计算机之间的数据传输，有TCP和UDP两个协议。<br>3.网络层：处理在网络上流动的数据包。数据包时网络传输最小数据单位。<br>4.链路层：处理硬件部分，网卡，设备驱动，光纤等。  </p>
+<h3 id="TCP-IP通信传输流"><a href="#TCP-IP通信传输流" class="headerlink" title="TCP&#x2F;IP通信传输流"></a>TCP&#x2F;IP通信传输流</h3><p>利用 TCP&#x2F;IP 协议族进行网络通信时,会通过分层顺序与对方进行通信。发送端从应用层下走,接收端则往应用层往上走。<br>用 HTTP 举例来说明,首先作为发送端的客户端在应用层(HTTP 协议)发出一个看某个 Web 页面的 HTTP 请求。接着,为了传输方便,在传输层(TCP 协议)把从应用层处收到的数据(HTTP 请求文)进行分割,并在各个报文上打上标记序号及端口号后转发给网络层。在网络层(IP 协议),增加作为通信目的地的 MAC 地址后转发给链路层。这样一来,往网络的通信请求就准备齐全了。接收端的服务器在链路层接收到数据,按序往上层发送,一直到应用层。当传输到应层,才能算真正接收到由客户端发送过来的 HTTP 请求。<br>层与层之间传输数据，每经过一层会打上该层首部信息，接收端接受时层层拆包。这叫封装。  </p>
+<h2 id="IP，TCP，DNS"><a href="#IP，TCP，DNS" class="headerlink" title="IP，TCP，DNS"></a>IP，TCP，DNS</h2><p>TCP&#x2F;IP 协议族中的 IP 指的就是网际协议。<br>IP 地址指明了节点被分配到的地址,MAC 地址是指网卡所属的固定地址。IP 地址可以和MAC 地址进行配对。IP 地址可变换,但 MAC 地址基本上不会更改。   </p>
+<h3 id="ARP协议凭借MAC地址通信"><a href="#ARP协议凭借MAC地址通信" class="headerlink" title="ARP协议凭借MAC地址通信"></a>ARP协议凭借MAC地址通信</h3><p>IP间通信依赖MAC地址。每当中转时要利用中转设备的MAC地址搜索下一个中转目标。ARP是一种地址解析协议根据通信方IP查其MAC。  </p>
+<h3 id="路由选择"><a href="#路由选择" class="headerlink" title="路由选择"></a>路由选择</h3><p>在到达通信目标前的中转过程中,那些计算机和路由器等网络设备只能获悉很粗略的传路线。<br>这种机制称为路由选择(routing)</p>
+<h3 id="TCP：确保可靠"><a href="#TCP：确保可靠" class="headerlink" title="TCP：确保可靠"></a>TCP：确保可靠</h3><p>TCP：传输层，提供字节流服务。大块数据分隔成报文段，并且能确认数据能够送达。<br>方法：用 TCP 协议把数据包送出去后,TCP 不会对传送后的情况置之不理,它一定会向对方确认是否成功送达。握手过程中使用了 TCP 的标志(flag) —— SYN(synchronize)和 ACK(acknowledgement)。<br>发送端首先发送一个带 SYN 标志的数据包给对方。接收端收到后,回传一个带有 SYN&#x2F;ACK 标志的数据包以示传达确认信息。最后,发送端再回传一个带 ACK 标志的数据包,表“握手”结束。若在握手过程中某个阶段莫名中断,TCP 协议会再次以相同的顺序发送相同的数据包。  </p>
+<h2 id="DNS：负责域名解析"><a href="#DNS：负责域名解析" class="headerlink" title="DNS：负责域名解析"></a>DNS：负责域名解析</h2><p>与HTTP同位于应用层，提供域名地址到IP地址之间的解析服务。  </p>
+<h2 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h2><p>URL就是浏览器访问web页面时需要输入的网页地址。</p>
+<h3 id="URI（统一资源标识符）"><a href="#URI（统一资源标识符）" class="headerlink" title="URI（统一资源标识符）"></a>URI（统一资源标识符）</h3><p>Uniform Resource Identifier，URI 就是由某个协议方案表示的资源的定位标识符。协议方案是指访问资源使用的协议类型名称。<br>URL时URI子集，URL只是互联网上的地址，而 URI更接近一种格式。  </p>
+<h3 id="URI格式"><a href="#URI格式" class="headerlink" title="URI格式"></a>URI格式</h3><p>绝对URI：使用 http: 或 https: 等协议方案名获取访问资源时要指定协议类型。不区分字母大小写。最后附一个冒号(:)<br>登陆信息：指定用户名和密码作为从服务器端获取资源时必要的登录信息。<br>服务器地址：使用绝对 URI 必须指定待访问的服务器地址。<br>RFC：Request for Comments，不遵照RFC的服务器可能无法被访问。  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/24/HTTP-day1/" data-id="clqi9bn6o00007ccx1nl5eoy7" data-title="HTTP/day1.md" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/24/HTTP-day2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HTTP/day2.md
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">算法学习-5</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day4/">HTTP/day4</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day3/">HTTP/day6</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day2/">HTTP/day2.md</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day1/">HTTP/day1.md</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

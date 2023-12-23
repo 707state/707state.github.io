@@ -73,6 +73,192 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-实验课第二次" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/17/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E7%AC%AC%E4%BA%8C%E6%AC%A1/" class="article-date">
+  <time class="dt-published" datetime="2023-11-17T08:38:30.000Z" itemprop="datePublished">2023-11-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/17/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E7%AC%AC%E4%BA%8C%E6%AC%A1/">实验课第二次</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>上了一节很抽象的实验课，记录一下感受。</p>
+<h2 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h2><h2 id="看起来是简单的快排，但是藏了坑，比如判断条件就有修改。第二题"><a href="#看起来是简单的快排，但是藏了坑，比如判断条件就有修改。第二题" class="headerlink" title="看起来是简单的快排，但是藏了坑，比如判断条件就有修改。第二题"></a>看起来是简单的快排，但是藏了坑，比如判断条件就有修改。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using std::cin, std::cout, std::vector;</span><br><span class="line">void quickSort(vector&lt;int&gt; &amp;nums, int left, int right) &#123;</span><br><span class="line">  int l = left, r = right, pivot = nums.at(l);</span><br><span class="line">  while (l &lt; r) &#123;</span><br><span class="line">    while (l &lt; r &amp;&amp; nums[r] &gt;= pivot) r--;</span><br><span class="line">    while (l &lt; r &amp;&amp; nums[l] &lt;= pivot) l++;</span><br><span class="line">    if (l &lt; r) std::swap(nums[l], nums[r]);</span><br><span class="line">  &#125;</span><br><span class="line">  std::swap(nums[l], nums[left]);</span><br><span class="line">  cout &lt;&lt; nums.front();</span><br><span class="line">  std::for_each(nums.begin() + 1, nums.end(), [](int a) &#123; cout &lt;&lt; &quot; &quot; &lt;&lt; a; &#125;);</span><br><span class="line">  cout &lt;&lt; &quot;\n&quot;;</span><br><span class="line">  quickSort(nums, left, l - 1);</span><br><span class="line">  quickSort(nums, l + 1, right);</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">  int n;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  vector&lt;int&gt; nums(n);</span><br><span class="line">  for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">    cin &gt;&gt; nums[i];</span><br><span class="line">  &#125;</span><br><span class="line">  quickSort(nums, 0, n - 1);</span><br><span class="line">  cout &lt;&lt; nums.front();</span><br><span class="line">  std::for_each(nums.begin() + 1, nums.end(), [](int a) &#123; cout &lt;&lt; &quot; &quot; &lt;&lt; a; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第二题</h2><h2 id="二叉树前序建树中序遍历，和作业很像，可以无脑抄（第三题"><a href="#二叉树前序建树中序遍历，和作业很像，可以无脑抄（第三题" class="headerlink" title="二叉树前序建树中序遍历，和作业很像，可以无脑抄（第三题"></a>二叉树前序建树中序遍历，和作业很像，可以无脑抄（<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/&gt;stdc++.h&gt;</span><br><span class="line">using std::vector,std::cout,std::cin;</span><br><span class="line">#define len sizeof(struct BiTNode)</span><br><span class="line">using std::vector, std::cin, std::cout;</span><br><span class="line">typedef struct BiTNode &#123;</span><br><span class="line">  char data;    </span><br><span class="line"> BiTNode *lchild; </span><br><span class="line"> BiTNode *rchild;</span><br><span class="line">&#125; BiTNode, *BiTree;</span><br><span class="line">void creat(BiTree &amp;T) &#123;</span><br><span class="line">  char ch;</span><br><span class="line">  scanf(&quot;%c&quot;, &amp;ch);</span><br><span class="line">  if (ch == &#x27;#&#x27;) &#123;</span><br><span class="line">    T = nullptr;</span><br><span class="line">    return;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    T = (BiTNode *)malloc(sizeof(BiTNode));</span><br><span class="line">    T-&gt;data = ch;</span><br><span class="line">    creat(T-&gt;lchild);</span><br><span class="line">    creat(T-&gt;rchild);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">vector&lt;char&gt; mid;</span><br><span class="line">void mid_or(BiTree head) &#123;</span><br><span class="line">  if (head == nullptr) return;</span><br><span class="line">  mid_or(head-&gt;lchild);</span><br><span class="line">  mid.push_back(head-&gt;data);</span><br><span class="line">  mid_or(head-&gt;rchild);</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">  BiTree Tree;</span><br><span class="line">  creat(Tree);  // 创建二叉树</span><br><span class="line">  mid.clear();</span><br><span class="line">  mid_or(Tree);</span><br><span class="line">  for (auto v : mid) &#123;</span><br><span class="line">    cout &lt;&lt; v;</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第三题</h2><h2 id="最大三角形，这一题难度一般，考察贪心法，如果最大的三个数无法建成三角形，那么应当调整最大的数，而不是调整次大或者第三大，所以只需要遍历即可。第四题"><a href="#最大三角形，这一题难度一般，考察贪心法，如果最大的三个数无法建成三角形，那么应当调整最大的数，而不是调整次大或者第三大，所以只需要遍历即可。第四题" class="headerlink" title="最大三角形，这一题难度一般，考察贪心法，如果最大的三个数无法建成三角形，那么应当调整最大的数，而不是调整次大或者第三大，所以只需要遍历即可。第四题"></a>最大三角形，这一题难度一般，考察贪心法，如果最大的三个数无法建成三角形，那么应当调整最大的数，而不是调整次大或者第三大，所以只需要遍历即可。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using std::vector, std::cin, std::cout;</span><br><span class="line">bool is_tri(int x, int y, int z) &#123;</span><br><span class="line">  return (x + y &gt; z &amp;&amp; z + x &gt; y &amp;&amp; z + y &gt; x) ? 1 : 0;</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">  int n;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  if (n &lt; 3) &#123;</span><br><span class="line">    printf(&quot;小棍的个数不能组成三角形&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  vector&lt;int&gt; num(n, 0);</span><br><span class="line">  bool flag = 0;</span><br><span class="line">  for (int i = 0; i &lt; n; i++) cin &gt;&gt; num[i];</span><br><span class="line">  std::sort(num.begin(), num.end(), std::greater&lt;int&gt;());</span><br><span class="line">  for (int i = 0; i &lt; n - 2; i++) &#123;</span><br><span class="line">    if (is_tri(num[i], num[i + 1], num[i + 2])) &#123;</span><br><span class="line">      flag = 1;</span><br><span class="line">      printf(&quot;最大三角形的周长是%d\n&quot;,</span><br><span class="line">             (std::accumulate(num.begin() + i, num.begin() + i + 3, 0)));</span><br><span class="line">      printf(&quot;组成最大三角形的三条边是%d,%d,%d&quot;, num[i + 2], num[i + 1],</span><br><span class="line">             num[i]);</span><br><span class="line">      break;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  if (!flag) &#123;</span><br><span class="line">    printf(&quot;没有找到能组成三角形的小棍&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第四题</h2><h2 id="还好舍友做的时候看到了（这题的思路其实就是把输入序列分别进行插入排序和归并排序，如果在排序时出现与目标序列相同的情况，就进行输出，并保存一个标记位，标记下一次并输出。所以这题的难点就是插入排序和非递归的归并排序。第五题"><a href="#还好舍友做的时候看到了（这题的思路其实就是把输入序列分别进行插入排序和归并排序，如果在排序时出现与目标序列相同的情况，就进行输出，并保存一个标记位，标记下一次并输出。所以这题的难点就是插入排序和非递归的归并排序。第五题" class="headerlink" title="还好舍友做的时候看到了（这题的思路其实就是把输入序列分别进行插入排序和归并排序，如果在排序时出现与目标序列相同的情况，就进行输出，并保存一个标记位，标记下一次并输出。所以这题的难点就是插入排序和非递归的归并排序。第五题"></a>还好舍友做的时候看到了（<br>这题的思路其实就是把输入序列分别进行插入排序和归并排序，如果在排序时出现与目标序列相同的情况，就进行输出，并保存一个标记位，标记下一次并输出。所以这题的难点就是插入排序和非递归的归并排序。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using std::vector, std::cin, std::cout;</span><br><span class="line">int n;</span><br><span class="line">void print(vector&lt;int&gt;&amp; t) &#123;</span><br><span class="line">  cout &lt;&lt; t.front();</span><br><span class="line">  std::for_each(t.begin() + 1, t.end(), [](int l) &#123; cout &lt;&lt; &quot; &quot; &lt;&lt; l; &#125;);</span><br><span class="line">&#125;</span><br><span class="line">void insert_sort(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) &#123;</span><br><span class="line">  int flag = 0;</span><br><span class="line">  for (int i = 2; i &lt;= n; i++) &#123;</span><br><span class="line">    std::sort(a.begin(), a.begin() + i);</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      cout &lt;&lt; &quot;Insertion Sort\n&quot; &lt;&lt; a.front();</span><br><span class="line">      std::for_each(a.begin() + 1, a.end(), [](int a) &#123; cout &lt;&lt; &quot; &quot; &lt;&lt; a; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    flag = (std::equal(a.begin(), a.end(), b.begin()));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">void merge_sort(vector&lt;int&gt;&amp; a, vector&lt;int&gt;&amp; b) &#123;</span><br><span class="line">  int flag = 0;</span><br><span class="line">  for (int i(2); i &lt;= n; i *= 2) &#123;</span><br><span class="line">    for (int j = 0; j &lt;= n; j += i) &#123;</span><br><span class="line">      if (i + j &lt;= n)</span><br><span class="line">        std::sort(a.begin() + j, a.begin() + i + j);</span><br><span class="line">      else</span><br><span class="line">        std::sort(a.begin() + j, a.end());</span><br><span class="line">    &#125;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      cout &lt;&lt; &quot;Merge Sort\n&quot; &lt;&lt; a.front();</span><br><span class="line">      std::for_each(a.begin() + 1, a.end(), [](int a) &#123; cout &lt;&lt; &quot; &quot; &lt;&lt; a; &#125;);</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    flag = (std::equal(a.begin(), a.end(), b.begin()));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main() &#123;</span><br><span class="line">  cin &gt;&gt; n;</span><br><span class="line">  vector&lt;int&gt; a(n, 0), b(n, 0);</span><br><span class="line">  for (int i = 0; i &lt; n; i++) cin &gt;&gt; a[i];</span><br><span class="line">  vector&lt;int&gt; copy_a(a);</span><br><span class="line">  for (int i = 0; i &lt; n; i++) cin &gt;&gt; b[i];</span><br><span class="line">  insert_sort(a, b);</span><br><span class="line">  merge_sort(copy_a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第五题</h2><p>一开始我确实不会，很长一段时间甚至没有读懂题，不过这道题可以用dfs暴力搜索，算是一个解法？</p>
+<p>思路就是，从5&#x2F;6开始，到7&#x2F;8结束，中间的凹陷或突出可以用一个变量表示，同时通过变量判断耦合情况，每一次将结果保存在一个结果集当中，输出时选择结果集当中字典序最小的序列进行输出（这里其实是不确定的，我认为原先的答案可能存在一个位置有错，也就是存在多种答案的序列，正确答案被后面的情况覆盖，导致结果不对）。<br>代码改了又改，结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bits/stdc++.h&gt;</span><br><span class="line">using std::cin, std::cout, std::sort, std::vector;</span><br><span class="line">class Solution &#123;</span><br><span class="line"> private:</span><br><span class="line">  int n;  // number of pintus</span><br><span class="line">  int max_recursive_depth;</span><br><span class="line">  vector&lt;int&gt; map;            // 记录每一次递归产生的字典序</span><br><span class="line">  vector&lt;int&gt; ans;            // 最终结果</span><br><span class="line">  vector&lt;int&gt; pintu;          // 记录每一层使用的下标</span><br><span class="line">  vector&lt;int&gt; num;            // n块拼图到其自身的数目</span><br><span class="line">  vector&lt;int&gt; l;              // 记录第i种拼图出现的第一个位置</span><br><span class="line">  vector&lt;int&gt; r;              // 记录第i种拼图出现的最后一个位置</span><br><span class="line">  vector&lt;vector&lt;int&gt;&gt; anses;  // 记录每一层的结果</span><br><span class="line">  struct Node &#123;</span><br><span class="line">    int v;   // 类型</span><br><span class="line">    int id;  // 编号</span><br><span class="line">    Node() &#123;&#125;</span><br><span class="line">    Node(int a, int b) : v(a), id(b) &#123;&#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  vector&lt;Node&gt; s;  // 记录输入的拼图数据</span><br><span class="line"> public:</span><br><span class="line">  Solution() &#123;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    s.resize(10, Node(0, 0));</span><br><span class="line">    l.resize(10, 0);</span><br><span class="line">    r.resize(10, 0);</span><br><span class="line">    num.resize(10, 0);</span><br><span class="line">    pintu.resize(10, 0);</span><br><span class="line">    map.resize(10, 0);</span><br><span class="line">    s[n + 1].v = 9;</span><br><span class="line">    ans.resize(n + 2, 2);</span><br><span class="line">    for (int i(1); i &lt;= n; i++) &#123;</span><br><span class="line">      cin &gt;&gt; s[i].v &gt;&gt; s[i].id;</span><br><span class="line">      ans[i] = INT16_MAX;</span><br><span class="line">    &#125;</span><br><span class="line">    std::sort(s.begin() + 1, s.begin() + n + 1, [](Node &amp;a, Node &amp;b) &#123;</span><br><span class="line">      return (a.v != b.v) ? (a.v &lt; b.v) : (a.id &lt; b.id);</span><br><span class="line">    &#125;);</span><br><span class="line">    int x(0);</span><br><span class="line">    for (int i = 1; i &lt; n + 2; i++) &#123;</span><br><span class="line">      if (s[i].v != x) &#123;</span><br><span class="line">        r[x] = i - 1;</span><br><span class="line">        x = s[i].v;</span><br><span class="line">        num[x]++;</span><br><span class="line">        l[x] = i;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        num[x]++;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    max_recursive_depth = n + 2 - num.at(5) - num.at(6) - num.at(7) - num.at(8);</span><br><span class="line">  &#125;</span><br><span class="line">  void dfs(int dep, int concave) &#123;</span><br><span class="line">    if (ans.at(dep) &lt; map.at(dep)) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (dep == max_recursive_depth + 1) &#123;</span><br><span class="line">      for (int i = 0; i &lt; max_recursive_depth + 1; i++) ans[i] = map[i];</span><br><span class="line">      anses.push_back(map);</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    if (dep == max_recursive_depth) &#123;</span><br><span class="line">      if (concave) &#123;</span><br><span class="line">        if (!num.at(8)) return;</span><br><span class="line">        map[dep] = s.at(l.at(8)).id;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        if (!num.at(7)) return;</span><br><span class="line">        map[dep] = s.at(l.at(7)).id;</span><br><span class="line">      &#125;</span><br><span class="line">      dfs(dep + 1, -1);</span><br><span class="line">    &#125; else if (dep == 1) &#123;</span><br><span class="line">      if (num.at(5)) &#123;</span><br><span class="line">        map[dep] = s.at(l.at(5)).id;</span><br><span class="line">        dfs(dep + 1, 1);</span><br><span class="line">      &#125;</span><br><span class="line">      if (num.at(6)) &#123;</span><br><span class="line">        map[dep] = s.at(l.at(6)).id;</span><br><span class="line">        dfs(dep + 1, 0);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      if (concave) &#123;</span><br><span class="line">        if (l.at(3) &amp;&amp; l.at(3) + pintu.at(3) &lt;= r.at(3)) &#123;</span><br><span class="line">          map[dep] = s.at(l.at(3) + pintu.at(3)).id;</span><br><span class="line">          pintu[3]++;</span><br><span class="line">          dfs(dep + 1, 1);</span><br><span class="line">          pintu[3]--;</span><br><span class="line">        &#125;</span><br><span class="line">        if (l.at(4) &amp;&amp; l.at(4) + pintu.at(4) &lt;= r.at(4)) &#123;</span><br><span class="line">          map[dep] = s.at(l.at(4) + pintu.at(4)).id;</span><br><span class="line">          pintu[4]++;</span><br><span class="line">          dfs(dep + 1, 0);</span><br><span class="line">          pintu[4]--;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        if (l.at(1) &amp;&amp; l.at(1) + pintu.at(1) &lt;= r.at(1)) &#123;</span><br><span class="line">          map[dep] = s.at(l.at(1) + pintu.at(1)).id;</span><br><span class="line">          pintu[1]++;</span><br><span class="line">          dfs(dep + 1, 1);</span><br><span class="line">          pintu[1]--;</span><br><span class="line">        &#125;</span><br><span class="line">        if (l.at(2) &amp;&amp; l.at(2) + pintu.at(2) &lt;= r.at(2)) &#123;</span><br><span class="line">          map[dep] = s.at(l.at(2) + pintu.at(2)).id;</span><br><span class="line">          pintu[2]++;</span><br><span class="line">          dfs(dep + 1, 0);</span><br><span class="line">          pintu[2]--;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line">  vector&lt;int&gt; get_answer() &#123;</span><br><span class="line">    if (ans.at(1) == INT16_MAX) return &#123;&#125;;</span><br><span class="line">    sort(anses.begin(), anses.end());</span><br><span class="line">    return anses.front();</span><br><span class="line">  &#125;</span><br><span class="line">  int getter() &#123; return n; &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main() &#123;</span><br><span class="line">  Solution *sol = new Solution();</span><br><span class="line">  sol-&gt;dfs(1, -1);</span><br><span class="line">  auto t = sol-&gt;get_answer();</span><br><span class="line">  if (t.empty()) &#123;</span><br><span class="line">    cout &lt;&lt; &quot;-1&quot;;</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  std::for_each(t.begin() + 1, t.begin() + sol-&gt;getter() + 1,</span><br><span class="line">                [](int a) &#123; cout &lt;&lt; a &lt;&lt; &quot; &quot;; &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实验课前四题做起来还算凑合，最后一题不得不求助于更厉害的人了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/17/%E5%AE%9E%E9%AA%8C%E8%AF%BE%E7%AC%AC%E4%BA%8C%E6%AC%A1/" data-id="clp2eamhx0002tscx32lx04v9" data-title="实验课第二次" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法学习-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" class="article-date">
+  <time class="dt-published" datetime="2023-11-14T01:17:18.000Z" itemprop="datePublished">2023-11-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/">算法学习-2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h2><p>动态规划的核心是状态之间的转移，也就是当前状态能否从前面的状态转移过来。<br>例题1：01背包<br>n个物品，w,v为其重量和价值的序列，W为总质量上限，求最多能装多大价值的物品。<br>这道题有一个特点，就是他和求一个序列中的数能否组成一个目标数相同。所以这个题可以用深度优先搜索来算。在搜索过程中，有能放和不能放入背包两种情况，可以放入背包有挑选和不挑选两种情况。<br>如果要放入，则需要减少重量，并加上价值。<br>这种情况势必带来大量重复计算，因此可以用记忆数组做剪枝，在本题中这个数组为dp[n][W];<br>上面是dfs的方法，dfs法很容易想到，因为他的思路是固定的，就是遍历所有的情况。<br>接下来引入dp。<br>回想一下刚才的过程，可以将这个代码分解成两部分，也就是装上和不装。<br>$$ dp[n][j]&#x3D;0 $$<br>$$dp[i][j]&#x3D;\begin{cases}<br>    dp[i+1][j] &amp; j&#x3D;w[i]\<br>    \max\ {dp[i+1][j],dp[i+1][j-w[i]]+v[i]} &amp; j&gt;&#x3D;w[i]<br>\end{cases} $$<br>这样就可以从循环入手了，最后的结果子dp[0][W]处。这里的dp看起来是反向的，因为这里的dp定义是从第i个物品开始挑选总重小于j是价值最大值。<br>按照dp[i+1][j]为0到i这i+1个物品中选出总重量不超过j的物品时总价值的最大值定义，就可以变为正向的dp。</p>
+<p>例题2：最长公共子序列<br>现在可以仿照上面的做法，给出dp的定义了。<br>定义dp[i][j]为$s_1s_2…s_i和t_1…t_j$之间的最长公共子序列长度，需要讨论的就是$s_{i+1}和t_{i+1}$是否相同，从而得出状态转移。</p>
+<p>例题3：完全背包问题<br> 01背包只能选择一个或者0，完全背包可以选择多次。<br> dp[i+1][j]表示前i个装入重量不超过j的物品的价值最大值。<br> 其中需要引入第三层循环，用来计算放进去多少个物品能取到最大值。<br>这里可以优化。<br>假定在dp[i][j]时，如果能放入大于等于1个的物体，则存在这样的情况：<br>如果这个地方能放入k个物体，即dp[i][j]&#x3D;max(dp[i-1][j],d[i-1][j-k*w[i]]+v[i]*k)，<br>这和放入在dp[i][j-w[i]]处放入k-1个物品的情况是相同的，也就是说存在重复计算的情况。<br>正因这样，可以进行优化。<br>优化后的情形和之前的计算形式上几乎一致。</p>
+<p>进一步优化，可以用一维的dp进行处理。</p>
+<p>例题4：多重部分和<br>相当于k和问题的拓展，之前是只需要0&#x2F;1个数，现在是n个数<br>我们仿照完全背包问题给出dp：<br>dp[i+1][j]表示前i种数字能否加成j</p>
+<p>例题5：打家劫舍<br>小偷如果偷相邻的两个房屋则会触发警报，求不触发警报的情况下能偷到的最大金额。<br>典型的动态规划，定义dp[i+1]表示从0到i的最大金额，那么dp[i+1]应该会与dp[i]和dp[i-1]有关，因为小偷要从前面的两个房屋之内转移才能拿到最大金额。如果偷了dp[i]则不能加上i+1处的金额，因此转移方程$dp[i+1]&#x3D;max(dp[i],dp[i-1]+v[i])$这里要注意dp[i]的语义。</p>
+<p>例题6：最长递增子序列<br>定义dp[i]为以nums[i]结尾的最长递增列的长度，那么dp[i]的上升子序列就应该是：<br>1.只包含nums[i];<br>2.满足$j&lt; i$且$a_j&lt;a_i$的$a_j$为结尾的序列之后</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-2/" data-id="clp2eami30005tscxhtu6fljw" data-title="算法学习-2" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-算法学习-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" class="article-date">
+  <time class="dt-published" datetime="2023-11-12T11:53:56.000Z" itemprop="datePublished">2023-11-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/">算法学习-1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="回归到搜索算法"><a href="#回归到搜索算法" class="headerlink" title=" 回归到搜索算法"></a> 回归到搜索算法</h2><p>第一步就是函数的递归，也就是穷竭式搜索。<br>递归和栈是穷竭式搜索的常用手段。<br>例题1：部分和问题</p>
+<blockquote>
+<p>本题要点是每一个数是否加入进去进行测试，同是这个题有优化手段，也就是当前和大于目标后可以直接返回。</p>
+</blockquote>
+<p>例题2：联通水洼&#x2F;细胞计数…<br>这道题目属于简单的图论，也就是求联通的图形的个数。在这里每一个联通的图形有一个特点就是和其他的字符连在一起，所以在一个遍历过程中，只需要遇到特征字符就开始递归的清除于其相邻的特征字符即可。</p>
+<p>BFS：常用场景有二叉树层序遍历，与DFS不同的一点是DFS与栈相关，BFS则与队列相关。</p>
+<p>例题3：迷宫的最小通路<br> 这道题可以用dfs和bfs，dfs的思路是每当到终点时就刷新一次最短路径长度（或者最短路径的位置），但是很难去保存路径信息。用bfs是用队列和辅助数组进行遍历，最后到达终点时记录的长度即为最短长度。bfs与dfs写法类似。<br>bfs法每一次都会把相邻的特殊节点放入队列，此时原来的节点全部出队，保留的节点都是新加入的。</p>
+<h2 id="贪心法"><a href="#贪心法" class="headerlink" title="贪心法"></a>贪心法</h2><p>按照一个策略进行计算<br>例题4：硬币问题<br>这个问题里面硬币的面值为递增，求最小硬币数达到给定值。很自然想到先从较大的硬币开始选择，因此可以用min(target&#x2F;coins[i],nums[i])来确定当前可用的硬币数。<br>这个问题假定有解</p>
+<p>例题5：工作区间问题<br>给定两个序列，分别代表该工作的开始和结束时间，求能做的工作最大数<br>这道题的思路是寻找最早结束的工作，因此每一次选择工作都应该找最早结束的。</p>
+<p>例题6：字典序最小<br>例如”abced”&#x3D;&gt;”abcde”或者”dtesa”&#x3D;&gt;”adste”，判断首尾找最小，相同则向内找较小值</p>
+<p>例题7：Saruman’s Army（最少几个区间能覆盖所有的点）<br>关键在于理解题意，题目中每个点都是又有左延又有右延的，第一次应该从最左侧的点开始查询，直到遇见第一个超过R的点，然后取他的上一个点作为开始，继续向右查找下一个点，这才是一轮完整的贪心，这样一次过后找到的点有两个，分别是右端点s和下一轮查找的一个中间点p。然后查询时会从s和p转移到p和p’，不断转移最后计算得到总的数目。</p>
+<p>例题8：fence repair<br>切割一组木板需要的开销，这个题目其实可以转化成哈夫曼树的路径吧。这样一来就有优先队列和贪心法两种解法，还是考虑贪心法。我们可以猜到一组数据两两组合再插回求其值的最小，应当选取最小值然后放回，每一个要算的值等于其在二叉树中的深度乘以值。对应在贪心法，就是用一个数组，每一次寻找最小和次小值放在最后两位，计算后将和放在倒数第二个并把最后一个元素去除，不断计算直到值为1</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/11/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-1/" data-id="clp2eami30006tscxe5jy4mz0" data-title="算法学习-1" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-cpp函数式编程-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" class="article-date">
+  <time class="dt-published" datetime="2023-09-12T11:48:37.000Z" itemprop="datePublished">2023-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/">cpp函数式编程(3)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>对递归函数的记忆化包装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;memory&gt;</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">#include&lt;functional&gt;</span><br><span class="line">#include&lt;utility&gt;</span><br><span class="line">namespace detail&#123;</span><br><span class="line">class numm_param&#123;&#125;;</span><br><span class="line">//空构造函数</span><br><span class="line">template&lt;class Sig,class F&gt;</span><br><span class="line">class memorize_helper;</span><br><span class="line"></span><br><span class="line">template&lt;class Result,class... Args,class F&gt;</span><br><span class="line">class memorize_helper&lt;Result(Args...),F&gt;&#123;</span><br><span class="line">    private:</span><br><span class="line">    using function_type=F;</span><br><span class="line">    using args_tuple_type=std::tuple&lt;std::decay_t&lt;Args&gt;...&gt;;</span><br><span class="line">    function_type f;</span><br><span class="line">    mutable std::map&lt;args_tuple_type,Result&gt; m_cache;</span><br><span class="line">    mutable std::recursive_mutex m_caches_mutex;</span><br><span class="line">    public:</span><br><span class="line">    template&lt;typename Function&gt;</span><br><span class="line">    memorize_helper(Function &amp;&amp; f,null_param):f(f)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    memorize_helper(const memorize_helper&amp; other):f(other.f)&#123;&#125;</span><br><span class="line">    template&lt;class ... InnerArgs&gt;</span><br><span class="line">    Result operator()(InnerArgs &amp;&amp; ...args)const&#123;</span><br><span class="line">        std::unique_lock&lt;std::recursive_mutex&gt; lock &#123;m_caches_mutex&#125;;</span><br><span class="line">        const auto args_tuple=std::make_tuple(args...);</span><br><span class="line">        const auto cached=m_cache.find(args_tuple);</span><br><span class="line">        if(cached!=m_cache.end())&#123;</span><br><span class="line">            return cached.second;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            auto &amp;&amp; result=f(</span><br><span class="line">                *this,</span><br><span class="line">                std::forward&lt;InnerArgs&gt;(args)...</span><br><span class="line">            );</span><br><span class="line">            m_cache[args_tuple]=result;</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;</span><br><span class="line">template&lt;class Sig,class F&gt;</span><br><span class="line">detail::memorize_helper&lt;Sig,std::decay_t&lt;F&gt;&gt;</span><br><span class="line">make_memorized_r(F &amp;&amp; f)&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">        std::forward&lt;F&gt;(f),detail::null_param()</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式用于调用记忆化函数和前一次调用结果的函数对象</p>
+</li>
+<li><p>惰性求值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;type_traits&gt;</span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">template&lt;typename ... String&gt;</span><br><span class="line">class lazy_string_concat_helper;</span><br><span class="line">template&lt;typename LastString,typename ... Strings&gt;</span><br><span class="line">class lazy_string_concat_helper&lt;LastString,Strings...&gt;&#123;</span><br><span class="line">    private:</span><br><span class="line">    LastString data;</span><br><span class="line">    lazy_string_concat_helper &lt;Strings ...&gt; tail;</span><br><span class="line">    public:</span><br><span class="line">    lazy_string_concat_helper(</span><br><span class="line">        LastString data,</span><br><span class="line">        lazy_string_concat_helper &lt;Strings...&gt;tail</span><br><span class="line">    ):data(data),tail(tail)&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    int size()const&#123;</span><br><span class="line">        retur data.size();+tail.size();</span><br><span class="line">    &#125;</span><br><span class="line">    template&lt;typename It&gt;</span><br><span class="line">    void save(It end) const&#123;</span><br><span class="line">        const auto begin=end-data.size();</span><br><span class="line">        std::copy(data.cbegin(),data.cend(),begin);</span><br><span class="line">        tail.save(begin);</span><br><span class="line">    &#125;</span><br><span class="line">    operator std::string() const&#123;</span><br><span class="line">        std::string result(size(),&#x27;\0&#x27;);</span><br><span class="line">        save(result.end());</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">    lazy_string_concat_helper&lt;std::string,LastString,Strings...&gt; operator+(const std::string&amp; other) const&#123;</span><br><span class="line">        return lazy_string_concat_helper&lt;std::string,LastString,Strings...&gt;(</span><br><span class="line">            other,</span><br><span class="line">            *this</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">template&lt;&gt;</span><br><span class="line">class lazy_string_concat_helper&lt;&gt;&#123;</span><br><span class="line">    public:</span><br><span class="line">    lazy_string_concat_helper()&#123;&#125;</span><br><span class="line">    int size()const&#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    template &lt;typename t&gt;</span><br><span class="line">    void save(t)const&#123;&#125;</span><br><span class="line">    lazy_string_concat_helper&lt;std::string&gt;</span><br><span class="line">    operator+(const std::string&amp; other)const&#123;</span><br><span class="line">        return lazy_string_concat_helper&lt;std::string&gt;(</span><br><span class="line">            other,</span><br><span class="line">            *this</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以用于惰性计算字符串相加，减少了不必要的内存分配和销毁</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-3/" data-id="clp2eamhz0004tscxak522fcw" data-title="cpp函数式编程(3)" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-cpp函数式编程-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/09/12/cpp%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-2/" class="article-date">
@@ -281,7 +467,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
     </div>
   </div>
 
@@ -294,23 +480,23 @@
       <ul>
         
           <li>
+            <a href="/2023/12/24/HTTP-day4/">HTTP/day4</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day3/">HTTP/day6</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day2/">HTTP/day2.md</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day1/">HTTP/day1.md</a>
+          </li>
+        
+          <li>
             <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/24/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-4/">算法学习-4</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/22/%E3%80%8A%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90gcc%E3%80%8B%E7%95%A5%E8%AF%BB%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3/">《深入解析gcc》略读的一些理解</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/20/luarocks%E5%AE%89%E8%A3%85lua-sqlite%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3/">luarocks安装lua-sqlite报错解决</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
           </li>
         
       </ul>

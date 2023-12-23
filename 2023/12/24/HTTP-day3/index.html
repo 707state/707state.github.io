@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>HTTP/day6 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="报文内的http信息HTTP报文HTTP协议交互的信息叫做报文，客户端叫请求报文，服务器端叫响应报文。   请求报文和响应报文的结构由请求行(包含请求方法，url和http版本)，状态行(包含状态码，原因短语和HTTP版本)，首部字段(包含请求和响应的各种条件和属性的各类首部)，还可能有HTTP的RFC里未定义的首部。   编码提升传输效率报文主体和实体的差异报文：HTTP通信的基本单位，有8位组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP&#x2F;day6">
+<meta property="og:url" content="http://example.com/2023/12/24/HTTP-day3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="报文内的http信息HTTP报文HTTP协议交互的信息叫做报文，客户端叫请求报文，服务器端叫响应报文。   请求报文和响应报文的结构由请求行(包含请求方法，url和http版本)，状态行(包含状态码，原因短语和HTTP版本)，首部字段(包含请求和响应的各种条件和属性的各类首部)，还可能有HTTP的RFC里未定义的首部。   编码提升传输效率报文主体和实体的差异报文：HTTP通信的基本单位，有8位组">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-23T16:07:34.000Z">
+<meta property="article:modified_time" content="2023-12-23T16:09:01.474Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="http/day3-HTTP-day3" class="h-entry article article-type-http/day3" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/24/HTTP-day3/" class="article-date">
+  <time class="dt-published" datetime="2023-12-23T16:07:34.000Z" itemprop="datePublished">2023-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      HTTP/day6
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="报文内的http信息"><a href="#报文内的http信息" class="headerlink" title="报文内的http信息"></a>报文内的http信息</h1><h2 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h2><p>HTTP协议交互的信息叫做报文，客户端叫请求报文，服务器端叫响应报文。  </p>
+<h2 id="请求报文和响应报文的结构"><a href="#请求报文和响应报文的结构" class="headerlink" title="请求报文和响应报文的结构"></a>请求报文和响应报文的结构</h2><p>由请求行(包含请求方法，url和http版本)，状态行(包含状态码，原因短语和HTTP版本)，首部字段(包含请求和响应的各种条件和属性的各类首部)，还可能有HTTP的RFC里未定义的首部。  </p>
+<h2 id="编码提升传输效率"><a href="#编码提升传输效率" class="headerlink" title="编码提升传输效率"></a>编码提升传输效率</h2><h3 id="报文主体和实体的差异"><a href="#报文主体和实体的差异" class="headerlink" title="报文主体和实体的差异"></a>报文主体和实体的差异</h3><p>报文：HTTP通信的基本单位，有8位组子节流组成，通过HTTP通信传输。<br>实体：作为请求或响应的有效载荷数据被传输，其内容由实体首部和实体主体组成。<br>通常,报文主体等于实体主体。只有当传输中进行编码操作时,实体主体的内容发生变化,才导致它和报文主体产生差异。</p>
+<h3 id="压缩传输的内容编码"><a href="#压缩传输的内容编码" class="headerlink" title="压缩传输的内容编码"></a>压缩传输的内容编码</h3><p>常见编码：gzip, compress, deflate, identity  </p>
+<h3 id="分割发送的分块传输编码"><a href="#分割发送的分块传输编码" class="headerlink" title="分割发送的分块传输编码"></a>分割发送的分块传输编码</h3><p>在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示出页面。这种功能叫分块传输编码。<br>实体主体分成多个块，每个块都用16进制来标记块的大小，实体主体的最后一块使用”0(CR+LF)”标记。  </p>
+<h2 id="发送多种数据的多部分对象集"><a href="#发送多种数据的多部分对象集" class="headerlink" title="发送多种数据的多部分对象集"></a>发送多种数据的多部分对象集</h2><p>多部分对象集合包含的对象如下：<br>1.multipart&#x2F;form-data：Web表单文件上传时使用。<br>2.multipart&#x2F;byteranges：响应报文包含多个范围的内容时使用。<br>HTTP报文使用多部分对象集合时需要在首部字段家生Content-type。  </p>
+<h2 id="获取部分内容的范围请求"><a href="#获取部分内容的范围请求" class="headerlink" title="获取部分内容的范围请求"></a>获取部分内容的范围请求</h2><p>要实现该功能需要指定下载的实体范围。像这样,指定范围发送的请求叫做范围请求(Range Request)。 </p>
+<h2 id="内容协商返回最合适的内容"><a href="#内容协商返回最合适的内容" class="headerlink" title="内容协商返回最合适的内容"></a>内容协商返回最合适的内容</h2><p>内容协商机制是指客户端和服务器端就响应的资源内容进行交涉,然后提供给客户端最适合的资源。内容协商会以响应资源的语言、字符集、编码方式等作为判断的基准。<br>有三种内容协商：服务器驱动协商(Server-driven Negotiation), 客户端驱动协商(Agent-driven Negotiation), 透明协商(Transparent Negotiation)。  </p>
+<h1 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h1><p>状态码表示服务器响应请求的结果。</p>
+<h2 id="告知请求结果"><a href="#告知请求结果" class="headerlink" title="告知请求结果"></a>告知请求结果</h2><p>借助状态码的值服务器端有没有正常处理请求。  </p>
+<h2 id="2xx成功"><a href="#2xx成功" class="headerlink" title="2xx成功"></a>2xx成功</h2><p>2xx表示正常处理</p>
+<h3 id="200-OK"><a href="#200-OK" class="headerlink" title="200 OK"></a>200 OK</h3><h3 id="204-No-Content"><a href="#204-No-Content" class="headerlink" title="204 No Content"></a>204 No Content</h3><p>返回的报文不含实体的主体部分。</p>
+<h3 id="206-Partial-Content"><a href="#206-Partial-Content" class="headerlink" title="206 Partial Content"></a>206 Partial Content</h3><p>客户端进行了范围请求，服务器成功响应。</p>
+<h2 id="3xx重定向"><a href="#3xx重定向" class="headerlink" title="3xx重定向"></a>3xx重定向</h2><p>结果需要某些特殊处理才能正确处理请求。</p>
+<h3 id="301-Moved-Permanently"><a href="#301-Moved-Permanently" class="headerlink" title="301 Moved Permanently"></a>301 Moved Permanently</h3><p>永久性重定向，需要用新的URI请求。</p>
+<h3 id="302-Found"><a href="#302-Found" class="headerlink" title="302 Found"></a>302 Found</h3><p>临时性重定向，以后还会改变。</p>
+<h3 id="303-See-Other"><a href="#303-See-Other" class="headerlink" title="303 See Other"></a>303 See Other</h3><p>请求的资源存在另一个URI,应使用GET方法定向获取的资源。</p>
+<h3 id="304-Not-Modified"><a href="#304-Not-Modified" class="headerlink" title="304 Not Modified"></a>304 Not Modified</h3><p>客户端发送附带条件的请求时，服务器允许请求访问资源但是没有满足条件。</p>
+<h2 id="4xx客户端错误"><a href="#4xx客户端错误" class="headerlink" title="4xx客户端错误"></a>4xx客户端错误</h2><h3 id="400-Bad-Request"><a href="#400-Bad-Request" class="headerlink" title="400 Bad Request"></a>400 Bad Request</h3><p>语法错误</p>
+<h3 id="401-Unauthorised"><a href="#401-Unauthorised" class="headerlink" title="401 Unauthorised"></a>401 Unauthorised</h3><p>没有经过认证的认证信息。</p>
+<h3 id="403Forbidden"><a href="#403Forbidden" class="headerlink" title="403Forbidden"></a>403Forbidden</h3><p>服务器拒绝。</p>
+<h2 id="5xx服务器错误"><a href="#5xx服务器错误" class="headerlink" title="5xx服务器错误"></a>5xx服务器错误</h2><h3 id="501-Internal-Server-Error"><a href="#501-Internal-Server-Error" class="headerlink" title="501 Internal Server Error"></a>501 Internal Server Error</h3><p>服务器端执行请求发生错误。</p>
+<h3 id="503-Service-Unavailable"><a href="#503-Service-Unavailable" class="headerlink" title="503 Service Unavailable"></a>503 Service Unavailable</h3><p>表明服务器暂时处于超负载或正在停机维护。</p>
+<h1 id="Web-Server"><a href="#Web-Server" class="headerlink" title="Web Server"></a>Web Server</h1><p>一台 Web 服务器可搭建多个独立域名的 Web 网站,也可作为通信路径上的中转服务器提升传输效率。 </p>
+<h2 id="用单台虚拟主机实现多个域名"><a href="#用单台虚拟主机实现多个域名" class="headerlink" title="用单台虚拟主机实现多个域名"></a>用单台虚拟主机实现多个域名</h2><p>HTTP允许一台HTTP服务器搭建多个Web站点。在相同的IP下，由于虚拟主机有多个主机名和域名的Web网站，因此发送HTTP请求时，要在Host首部完整指定主机名和域名的url。</p>
+<h2 id="通信数据转发程序"><a href="#通信数据转发程序" class="headerlink" title="通信数据转发程序"></a>通信数据转发程序</h2><p>代理，网关，隧道时用于通信数据转发的应用程序。<br>代理：一种有转发功能的应用程序，扮演了中间人的角色。<br>网关：转发其他服务器通信数据的服务器，接收从客户端发送来的请求时，他就像自己拥有资源的源服务器一样对请求进行处理。<br>隧道：服务器和客户端之间中转，保持双方通信连接的应用程序。</p>
+<h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><p>代理服务器的基本行为就是接受客户端发送的请求后转发给其他服务器。代理不改变URI，直接发送给前方持有资源的目标服务器。<br>持有资源实体的服务器被称为源服务器。<br>HTTP通信中可以联合多个代理服务器，请求和响应的转发会经过数个锁链一样的代理服务器，转发时，需要附加Via首部字段以标记主机信息。<br>使用代理服务器的理由：利用缓存技术减少网络带宽的流量，组织内部针对特定网站的访问控制。<br>两种基准：是否使用缓存，是否会修改报文。<br>1.缓存代理：转发响应时，缓存代理预先将资源的副本保存在代理服务器上，客户再次接受对相同资源的请求时，就直接将缓存作为响应返回。<br>2.透明代理：不对报文作任何加工。</p>
+<h3 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h3><p>网关能让通信线路上的服务器提供非HTTP协议。提高通信安全性, 可以连接数据库。</p>
+<h3 id="隧道"><a href="#隧道" class="headerlink" title="隧道"></a>隧道</h3><p>可以使用SSL进行加密，目的是确保客户端能够与服务器进行安全的通信。</p>
+<h2 id="保存资源的缓存"><a href="#保存资源的缓存" class="headerlink" title="保存资源的缓存"></a>保存资源的缓存</h2><p>利用缓存可以减少对源服务器的访问，节省了通信流量和通信时间。缓存服务器是代理服务器的一种。<br>优势是避免多次从源服务器转发资源。  </p>
+<h3 id="缓存的有效期限"><a href="#缓存的有效期限" class="headerlink" title="缓存的有效期限"></a>缓存的有效期限</h3><p>涉及到缓存资源的有效性，如果源服务器数据更新而缓存没有就会出错。</p>
+<h3 id="客户端的缓存"><a href="#客户端的缓存" class="headerlink" title="客户端的缓存"></a>客户端的缓存</h3><p>客户端和缓存服务器相同点都是缓存过期后,会向源服务器确认有效性。若失效则再次请求。</p>
+<h1 id="HTTP首部"><a href="#HTTP首部" class="headerlink" title="HTTP首部"></a>HTTP首部</h1><h2 id="HTTP报文首部"><a href="#HTTP报文首部" class="headerlink" title="HTTP报文首部"></a>HTTP报文首部</h2><p>请求和响应的首部分别为处理请求和响应的必要信息。<br>请求报文：Method，URL，HTTP版本，首部字段组成。<br>响应报文：HTTP版本，状态码，HTTP首部字段组成。</p>
+<h3 id="传递重要信息"><a href="#传递重要信息" class="headerlink" title="传递重要信息"></a>传递重要信息</h3><p>首部字段传递了报文主体大小，所使用语言，认证信息等内容。</p>
+<h3 id="4种首部字段类型"><a href="#4种首部字段类型" class="headerlink" title="4种首部字段类型"></a>4种首部字段类型</h3><p>通用首部字段：请求和响应双方都要用<br>请求首部字段：客户端向服务器段发送时使用的首部。<br>响应首部：通上<br>实体首部：针对请求报文与响应报文的实体部分使用的首部。</p>
+<h3 id="End-to-end首部和Hop-by-hop首部"><a href="#End-to-end首部和Hop-by-hop首部" class="headerlink" title="End-to-end首部和Hop-by-hop首部"></a>End-to-end首部和Hop-by-hop首部</h3><p>端到端：在此类别中的首部会转发给请求&#x2F;响应对应的最终接收目标，且必须保存在由缓存生成的响应，另外规定它必须被转发。<br>逐跳：只对单次转发有效，会因通过缓存或代理而不再转发。需要提供Connection字段。</p>
+<h2 id="通用首部字段"><a href="#通用首部字段" class="headerlink" title="通用首部字段"></a>通用首部字段</h2><h3 id="Cache-Control"><a href="#Cache-Control" class="headerlink" title="Cache-Control"></a>Cache-Control</h3><p>控制缓存的行为，</p>
+<h3 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h3><p>程序不再转发给代理的首部字段<br>管理持久性连接<br>控制不再转发给代理的首部字段</p>
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><p>HTTP报文的日期和时间。</p>
+<h3 id="Pragma"><a href="#Pragma" class="headerlink" title="Pragma"></a>Pragma</h3><h3 id="Trailer"><a href="#Trailer" class="headerlink" title="Trailer"></a>Trailer</h3><p>实现说明报文主体后记录那些首部字段。<br>…….略</p>
+<h2 id="为Cookie服务的首部字段"><a href="#为Cookie服务的首部字段" class="headerlink" title="为Cookie服务的首部字段"></a>为Cookie服务的首部字段</h2><h2 id="Set-Cookie"><a href="#Set-Cookie" class="headerlink" title="Set-Cookie"></a>Set-Cookie</h2><p>由NAME, expires, oath, domain, decure等属性</p>
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>Cookie:status&#x3D;enable<br>首部字段 Cookie 会告知服务器,当客户端想获得 HTTP 状态管理支持时,就会在请求中包含从服务器接收到的 Cookie。接收到多个 Cookie 时,同样可以以多个 Cookie 形式发送。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/24/HTTP-day3/" data-id="clqi9bn6w00037ccxavvfbcvu" data-title="HTTP/day6" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/24/HTTP-day4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          HTTP/day4
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/12/24/HTTP-day2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HTTP/day2.md</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day4/">HTTP/day4</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day3/">HTTP/day6</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day2/">HTTP/day2.md</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day1/">HTTP/day1.md</a>
+          </li>
+        
+          <li>
+            <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
