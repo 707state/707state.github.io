@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>LinuxProcess/go进程 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="文件锁进程锁进程锁不同于线程锁，互斥量，读写锁，自旋锁。它是通过记录一个PID文件，避免两个进程同时运行的文件锁。   进程锁的主要作用之一就是协调进程的运行。使用PID文件锁的另一个好处就是方便进程向自己发停止或者重启信号。 使用进程锁其实要实现一个进程锁很简单,通过文件就可以实现了。例如程序开始运行时去检查一个PID文件,如果文件存在就直接退出,如果文件不存在就创建一个,并把当前进程的PID写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LinuxProcess&#x2F;go进程">
+<meta property="og:url" content="http://example.com/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="文件锁进程锁进程锁不同于线程锁，互斥量，读写锁，自旋锁。它是通过记录一个PID文件，避免两个进程同时运行的文件锁。   进程锁的主要作用之一就是协调进程的运行。使用PID文件锁的另一个好处就是方便进程向自己发停止或者重启信号。 使用进程锁其实要实现一个进程锁很简单,通过文件就可以实现了。例如程序开始运行时去检查一个PID文件,如果文件存在就直接退出,如果文件不存在就创建一个,并把当前进程的PID写">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-12-23T16:14:30.000Z">
+<meta property="article:modified_time" content="2023-12-23T16:15:14.956Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-LinuxProcess-go进程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2023-12-23T16:14:30.000Z" itemprop="datePublished">2023-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      LinuxProcess/go进程
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="文件锁"><a href="#文件锁" class="headerlink" title="文件锁"></a>文件锁</h1><h2 id="进程锁"><a href="#进程锁" class="headerlink" title="进程锁"></a>进程锁</h2><p>进程锁不同于线程锁，互斥量，读写锁，自旋锁。它是通过记录一个PID文件，避免两个进程同时运行的文件锁。  </p>
+<p>进程锁的主要作用之一就是协调进程的运行。<br>使用PID文件锁的另一个好处就是方便进程向自己发停止或者重启信号。</p>
+<h2 id="使用进程锁"><a href="#使用进程锁" class="headerlink" title="使用进程锁"></a>使用进程锁</h2><p>其实要实现一个进程锁很简单,通过文件就可以实现了。例如程序开始运行时去检查一个PID文件,如果文件存在就直接退出,如果文件不存在就创建一个,并把当前进程的PID写入文件中。这样我们很容易可以实和读锁,但是所有流程都需要自己控制。 </p>
+<h2 id="使用flock"><a href="#使用flock" class="headerlink" title="使用flock"></a>使用flock</h2><p>go引入了FcntlFock()</p>
+<h1 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h1><p>orphan process。其父进程完成后或被终止后仍继续运行的一类进程。<br>也就是父进程结束但是子进程还在运行，如同孤儿。孤儿进程的父进程会被init收养。<br>作用：现实中用户可能使进程可以成为孤儿进程，这样她就于父进程session脱离，成为守护进程。</p>
+<h1 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h1><p>一个进程完成工作终止之后，他的父进程需要调用wait()或者waitpid()系统调用取得子进程的终止状态。<br>一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然在系统里，这样的进程称为僵尸进程。</p>
+<h1 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h1><p>Daemon，可以认为守护进程就是后台服务进程，因为她有一个很长的生命周期提供服务，关闭终端不会影响服务。</p>
+<h2 id="实现守护进程"><a href="#实现守护进程" class="headerlink" title="实现守护进程"></a>实现守护进程</h2><p>首先保证进程在后台运行，可以在启动程序后卖弄加&amp;。更原始的方法是进程自己fork然后结束父进程。<br>然后于终端、进程组、会话分离。每个进程创建时都绑定一个终端而且属于一个进程组。这些进程组在一个会话中。想要与环境分离可以使用setsid()。也可以从父进程集成文件掩码，手动清理掩码(umask)。</p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>pipe是最简单的方式，任何进程的标准输出都可以作为其他进程的输出</p>
+<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>见后面</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>在内核部分实现，原理类似于传统的消息队列</p>
+<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>shared memory</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>本质上是一个整型计数器，调用wait时计数-1，减到0开始阻塞进程，从而达到进程，线程间协作的作用。</p>
+<h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p>通过网络来通信。</p>
+<h1 id="信号-1"><a href="#信号-1" class="headerlink" title="信号"></a>信号</h1><h2 id="信号种类"><a href="#信号种类" class="headerlink" title="信号种类"></a>信号种类</h2><p>Linux中有多种信号，1-31为unix支持的信号，是不可靠信号，32-63是扩充信号，叫可靠信号。前者不支持排队，可能会丢失。<br>go将信号封装在os&#x2F;signal中。  </p>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>启动一个进程，需要调用操作系统的调用(syscall)，实际上操作系统和普通进程是运行在不同空间上的，操作系统进程运行在内核态(todo:kernel space)，开发者运行得进程在用户态，有效规避了用户程序破坏系统的可能。</p>
+<h1 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h1><p>内核给每个访问的文件分配了文件描述符，本质是一个非负整数，在打开或新建文件是返回，以后读写文件都依靠这个文件描述符。<br>socket连接也是文件。</p>
+<h1 id="Epoll"><a href="#Epoll" class="headerlink" title="Epoll"></a>Epoll</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Epoll是poll的改进版，更加高效，与高并发有关。</p>
+<h2 id="Poll"><a href="#Poll" class="headerlink" title="Poll"></a>Poll</h2><p>本质上是poll本质上是Linux系统调用，其接口为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int poll(struct pollfd *fds,nfds_t nfds,int timeout)</span><br></pre></td></tr></table></figure>
+<p>作用：监控资源是否可用</p>
+<h2 id="Epoll-1"><a href="#Epoll-1" class="headerlink" title="Epoll"></a>Epoll</h2><p>epoll大幅提升高并发服务器的资源使用率，相比poll而言。epoll只查询内核IO事件唤醒的集合。还提供edge triggered的特性。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>epoll是基于文件描述符的callback函数来实现的，只有发生IO时间的socket会调用callback函数，然后加入epoll的Ready队列。</p>
+<h2 id="Mmap"><a href="#Mmap" class="headerlink" title="Mmap"></a>Mmap</h2><p>epoll使用mmap来共享内存。<br>mmap不是进程的概念，这是一种共享内存的方法。go的设计宗旨是”不要通过共享来通信，通过通信来共享”。</p>
+<h1 id="共享内存-1"><a href="#共享内存-1" class="headerlink" title="共享内存"></a>共享内存</h1><p>实现mmap()函数支持共享内存，不过是调用的c实现的系统调用函数。</p>
+<h1 id="写时复制"><a href="#写时复制" class="headerlink" title="写时复制"></a>写时复制</h1><p>一般我们运行程序都是Fork一个进程后马上执行Exec加载程序,而Fork的是否实际上用的是父进程的堆栈空间,Linux通过Copy On Write技术极大地减少了Fork的开销。  </p>
+<h1 id="Cgroups"><a href="#Cgroups" class="headerlink" title="Cgroups"></a>Cgroups</h1><p>全称Control Groups，是Linux内核用于资源隔离的技术。Cgroups可以控制CPU，内存，磁盘访问。</p>
+<h2 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h2><p>Cgroups有一个特殊的数据结构记录进程组的信息。<br>Docker的两个基础是Cgroups和Namespaces。</p>
+<h1 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h1><p>隔离命名空间，限制了容器之间的进程通信。<br>Linux内核提供了clone系统调用，用clone取代fork就能创建同一命名空间下的进程。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/" data-id="clqi9htla0000u0cxbycdb93t" data-title="LinuxProcess/go进程" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/12/24/LinuxProcess-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">LinuxProcess/基础知识</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/">December 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/11/">November 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">September 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/">LinuxProcess/go进程</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/LinuxProcess-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">LinuxProcess/基础知识</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day4/">HTTP/day4</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day3/">HTTP/day6</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/HTTP-day2/">HTTP/day2.md</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

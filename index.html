@@ -73,6 +73,148 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LinuxProcess-go进程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2023-12-23T16:14:30.000Z" itemprop="datePublished">2023-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/">LinuxProcess/go进程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="文件锁"><a href="#文件锁" class="headerlink" title="文件锁"></a>文件锁</h1><h2 id="进程锁"><a href="#进程锁" class="headerlink" title="进程锁"></a>进程锁</h2><p>进程锁不同于线程锁，互斥量，读写锁，自旋锁。它是通过记录一个PID文件，避免两个进程同时运行的文件锁。  </p>
+<p>进程锁的主要作用之一就是协调进程的运行。<br>使用PID文件锁的另一个好处就是方便进程向自己发停止或者重启信号。</p>
+<h2 id="使用进程锁"><a href="#使用进程锁" class="headerlink" title="使用进程锁"></a>使用进程锁</h2><p>其实要实现一个进程锁很简单,通过文件就可以实现了。例如程序开始运行时去检查一个PID文件,如果文件存在就直接退出,如果文件不存在就创建一个,并把当前进程的PID写入文件中。这样我们很容易可以实和读锁,但是所有流程都需要自己控制。 </p>
+<h2 id="使用flock"><a href="#使用flock" class="headerlink" title="使用flock"></a>使用flock</h2><p>go引入了FcntlFock()</p>
+<h1 id="孤儿进程"><a href="#孤儿进程" class="headerlink" title="孤儿进程"></a>孤儿进程</h1><p>orphan process。其父进程完成后或被终止后仍继续运行的一类进程。<br>也就是父进程结束但是子进程还在运行，如同孤儿。孤儿进程的父进程会被init收养。<br>作用：现实中用户可能使进程可以成为孤儿进程，这样她就于父进程session脱离，成为守护进程。</p>
+<h1 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h1><p>一个进程完成工作终止之后，他的父进程需要调用wait()或者waitpid()系统调用取得子进程的终止状态。<br>一个进程使用fork创建子进程，如果子进程退出，而父进程并没有调用wait或waitpid获取子进程的状态信息，那么子进程的进程描述符仍然在系统里，这样的进程称为僵尸进程。</p>
+<h1 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h1><p>Daemon，可以认为守护进程就是后台服务进程，因为她有一个很长的生命周期提供服务，关闭终端不会影响服务。</p>
+<h2 id="实现守护进程"><a href="#实现守护进程" class="headerlink" title="实现守护进程"></a>实现守护进程</h2><p>首先保证进程在后台运行，可以在启动程序后卖弄加&amp;。更原始的方法是进程自己fork然后结束父进程。<br>然后于终端、进程组、会话分离。每个进程创建时都绑定一个终端而且属于一个进程组。这些进程组在一个会话中。想要与环境分离可以使用setsid()。也可以从父进程集成文件掩码，手动清理掩码(umask)。</p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><p>pipe是最简单的方式，任何进程的标准输出都可以作为其他进程的输出</p>
+<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>见后面</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>在内核部分实现，原理类似于传统的消息队列</p>
+<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>shared memory</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p>本质上是一个整型计数器，调用wait时计数-1，减到0开始阻塞进程，从而达到进程，线程间协作的作用。</p>
+<h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p>通过网络来通信。</p>
+<h1 id="信号-1"><a href="#信号-1" class="headerlink" title="信号"></a>信号</h1><h2 id="信号种类"><a href="#信号种类" class="headerlink" title="信号种类"></a>信号种类</h2><p>Linux中有多种信号，1-31为unix支持的信号，是不可靠信号，32-63是扩充信号，叫可靠信号。前者不支持排队，可能会丢失。<br>go将信号封装在os&#x2F;signal中。  </p>
+<h2 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h2><p>启动一个进程，需要调用操作系统的调用(syscall)，实际上操作系统和普通进程是运行在不同空间上的，操作系统进程运行在内核态(todo:kernel space)，开发者运行得进程在用户态，有效规避了用户程序破坏系统的可能。</p>
+<h1 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h1><p>内核给每个访问的文件分配了文件描述符，本质是一个非负整数，在打开或新建文件是返回，以后读写文件都依靠这个文件描述符。<br>socket连接也是文件。</p>
+<h1 id="Epoll"><a href="#Epoll" class="headerlink" title="Epoll"></a>Epoll</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Epoll是poll的改进版，更加高效，与高并发有关。</p>
+<h2 id="Poll"><a href="#Poll" class="headerlink" title="Poll"></a>Poll</h2><p>本质上是poll本质上是Linux系统调用，其接口为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int poll(struct pollfd *fds,nfds_t nfds,int timeout)</span><br></pre></td></tr></table></figure>
+<p>作用：监控资源是否可用</p>
+<h2 id="Epoll-1"><a href="#Epoll-1" class="headerlink" title="Epoll"></a>Epoll</h2><p>epoll大幅提升高并发服务器的资源使用率，相比poll而言。epoll只查询内核IO事件唤醒的集合。还提供edge triggered的特性。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>epoll是基于文件描述符的callback函数来实现的，只有发生IO时间的socket会调用callback函数，然后加入epoll的Ready队列。</p>
+<h2 id="Mmap"><a href="#Mmap" class="headerlink" title="Mmap"></a>Mmap</h2><p>epoll使用mmap来共享内存。<br>mmap不是进程的概念，这是一种共享内存的方法。go的设计宗旨是”不要通过共享来通信，通过通信来共享”。</p>
+<h1 id="共享内存-1"><a href="#共享内存-1" class="headerlink" title="共享内存"></a>共享内存</h1><p>实现mmap()函数支持共享内存，不过是调用的c实现的系统调用函数。</p>
+<h1 id="写时复制"><a href="#写时复制" class="headerlink" title="写时复制"></a>写时复制</h1><p>一般我们运行程序都是Fork一个进程后马上执行Exec加载程序,而Fork的是否实际上用的是父进程的堆栈空间,Linux通过Copy On Write技术极大地减少了Fork的开销。  </p>
+<h1 id="Cgroups"><a href="#Cgroups" class="headerlink" title="Cgroups"></a>Cgroups</h1><p>全称Control Groups，是Linux内核用于资源隔离的技术。Cgroups可以控制CPU，内存，磁盘访问。</p>
+<h2 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h2><p>Cgroups有一个特殊的数据结构记录进程组的信息。<br>Docker的两个基础是Cgroups和Namespaces。</p>
+<h1 id="Namespaces"><a href="#Namespaces" class="headerlink" title="Namespaces"></a>Namespaces</h1><p>隔离命名空间，限制了容器之间的进程通信。<br>Linux内核提供了clone系统调用，用clone取代fork就能创建同一命名空间下的进程。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/" data-id="clqi9htla0000u0cxbycdb93t" data-title="LinuxProcess/go进程" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LinuxProcess-基础知识" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/12/24/LinuxProcess-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="article-date">
+  <time class="dt-published" datetime="2023-12-23T16:12:10.000Z" itemprop="datePublished">2023-12-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/12/24/LinuxProcess-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">LinuxProcess/基础知识</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="进程是什么"><a href="#进程是什么" class="headerlink" title="进程是什么"></a>进程是什么</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>已运行程序的实体，进程需要一些资源才能完成工作。<br>进程不一定都是在运行的，也可能在等待调度。</p>
+<h2 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h2><p>全称为Process ID，是标示和区分进程的ID，他是全局唯一的正整数。<br>在Go可以用Getpid()获得进程PID。<br>可以看到PID是有操作系统随机分配的，同一个程序运行两次会产生两个PID。</p>
+<h2 id="PPID"><a href="#PPID" class="headerlink" title="PPID"></a>PPID</h2><p>每个进程不仅有PID还会有PPID，即父进程ID。<br>这是因为进程都是有父进程衍生出来的。PID为1的进程是内核创建的init进程，所以该进程没有父进程。<br>Go有Getppdi()  </p>
+<h2 id="使用PID"><a href="#使用PID" class="headerlink" title="使用PID"></a>使用PID</h2><p>查看进程的PID可以用top&#x2F;ps</p>
+<h3 id="TOP"><a href="#TOP" class="headerlink" title="TOP"></a>TOP</h3><p>可以看到当前的进程，并获取更具体的PID</p>
+<h3 id="PS"><a href="#PS" class="headerlink" title="PS"></a>PS</h3><p>执行ps aux</p>
+<h2 id="使用PID-1"><a href="#使用PID-1" class="headerlink" title="使用PID"></a>使用PID</h2><p>有了pid就可以用kill结束进程。  </p>
+<h1 id="进程名字"><a href="#进程名字" class="headerlink" title="进程名字"></a>进程名字</h1><p>进程名是进程参数的第一个字符串，一般可以用os.Args获取。  </p>
+<h1 id="进程参数"><a href="#进程参数" class="headerlink" title="进程参数"></a>进程参数</h1><p>任何进程启动时都可以赋予一个字符串数组作为参数，一般叫Argv或Args。  </p>
+<h2 id="获得进程Argument"><a href="#获得进程Argument" class="headerlink" title="获得进程Argument"></a>获得进程Argument</h2><p>进程参数可以分两类：Argument(参数)也就是作为进程运行的实体参数。<br>Go可以用os.Args获取命令行参数，即os.Args[1:]就是所需输入的。  </p>
+<h2 id="获得进程flag"><a href="#获得进程flag" class="headerlink" title="获得进程flag"></a>获得进程flag</h2><p>使用Flag可以将命令行参数转化成所需要的数据类型</p>
+<h1 id="输入与输出"><a href="#输入与输出" class="headerlink" title="输入与输出"></a>输入与输出</h1><h2 id="进程输入与输出"><a href="#进程输入与输出" class="headerlink" title="进程输入与输出"></a>进程输入与输出</h2><p>每个进程，操作系统都会分配三个文件资源，分别是标准输入STDIN，标准输出STDOUT，错误输出STDERR。  </p>
+<h2 id="标准输入"><a href="#标准输入" class="headerlink" title="标准输入"></a>标准输入</h2><p>来自管道的数据也是标准输入的一种。这就可以用io.Readall来获取。</p>
+<h2 id="标准输出"><a href="#标准输出" class="headerlink" title="标准输出"></a>标准输出</h2><p>fmt.Printxx</p>
+<h1 id="Concurrently-Parallel"><a href="#Concurrently-Parallel" class="headerlink" title="Concurrently Parallel"></a>Concurrently Parallel</h1><p>这两者是不同的概念，并行是实现并发的一种。</p>
+<h1 id="进程越多越好？"><a href="#进程越多越好？" class="headerlink" title="进程越多越好？"></a>进程越多越好？</h1><p>Nginx是一个高性能、高并发的Web服务器,也就是说它可以同时处理超过10万个HTTP请求,而它建议的启动的进程数不要超过CPU个数,为什么呢?<br>Nginx是Master-Worker模型，Master进程只管负责Worker进程，worker进程负责处理真实的请求。每个worker进程能够处理的请求跟内存有关，因为Linux的Nginx使用了epoll这样的多路复用的IO接口，不需要多线程并行也能并发。<br>多进程的快出是CPU切换上下文时间变多。  </p>
+<h2 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h2><p>进程数等于CPU数，但是进程有阻塞。这是应该提高进程数增加并发数。<br>在Nginx的例子中,如果Nginx主要负责静态内容的下载,而服务器内存比较小,大部分文件访问都需要读磁盘,这时候进程很容易阻塞,所以建议提高下Worker数目。 </p>
+<h1 id="绑定CPU"><a href="#绑定CPU" class="headerlink" title="绑定CPU"></a>绑定CPU</h1><p>nginx可以在配置文件里面知名COU，减少上下文切换。  </p>
+<h1 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h1><p>在Linux源码fs&#x2F;proc&#x2F;array.c里面，定义了7种状态。</p>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p>O:进程正在处理器运行,这个状态从来没有见过.<br>S:休眠状态(sleeping)<br>R:等待运行(runable)R Running or runnable (on run queue) 进程处于运行或就绪状态<br>I:空闲状态(idle)<br>Z:僵尸状态(zombie)<br>T:跟踪状态(Traced)<br>B:进程正在等待更多的内存页<br>D: 不可中断的深度睡眠,一般由IO引起,同步IO在做读或写操作时,cpu不能做其它事情,只能等待,这时进程处于这种状态,如果程序采用异步IO,这种状态应该就很少见到了。 </p>
+<h1 id="退出码"><a href="#退出码" class="headerlink" title="退出码"></a>退出码</h1><p>人和进程退出是都会留下退出码。0-255.0表示正常退出。<br>这个东东在bash脚本很常见，根据前一个命令的退出吗选择是否执行下一个</p>
+<h1 id="进程资源"><a href="#进程资源" class="headerlink" title="进程资源"></a>进程资源</h1><p>查看PID为1的进程信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /proc/1/</span><br></pre></td></tr></table></figure>
+<p>同样的可以在这里查看&#x2F;proc&#x2F;1&#x2F;status</p>
+<p>实际上ps命令获得的数据就是查看proc文件夹的内容获得的</p>
+<h1 id="死锁概念"><a href="#死锁概念" class="headerlink" title="死锁概念"></a>死锁概念</h1><p>一个进程拿着资源A请求资源B，另一个进程拿着资源B请求资源A，双方都不释放自己的资源，导致两个进程都进行不下去。  </p>
+<h1 id="活锁"><a href="#活锁" class="headerlink" title="活锁"></a>活锁</h1><p>进入活锁的进程是没有阻塞的，会继续使用CPU，但外界看到整个进程没有进行。  </p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>两个人同时过独木桥，两个人都让对方，这就是活锁<br>活锁会导致CPU耗尽，解决方法是引入随机变量、增加重试次数等。  </p>
+<h1 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h1><p>Portable Operation System Interface</p>
+<p>操作系统的接口标准，Unix, Linux, Mac遵循这套标准。  </p>
+<h2 id="POSIX进程"><a href="#POSIX进程" class="headerlink" title="POSIX进程"></a>POSIX进程</h2><p>有POSIX定的fork和exec创建起一个POSIC进程，这个进程可以使用通用的IPC，信号等机制。  </p>
+<h2 id="POSIX线程"><a href="#POSIX线程" class="headerlink" title="POSIX线程"></a>POSIX线程</h2><p>POSIX定义了线程的标准，包括创建和控制线程的API，在pthreads中实现</p>
+<h1 id="Nohup"><a href="#Nohup" class="headerlink" title="Nohup"></a>Nohup</h1><p>普通进程运行时会默认绑定在TTY，关闭后会给上面的所有线程发送TERM信号。<br>Nohup原理就是在此终端关闭时给该终端下的每一个进程发送SIGHUP信号，但是nuhup会忽略这个信号。<br>这是运行守护进程最简单的方法。</p>
+<h1 id="运行进程"><a href="#运行进程" class="headerlink" title="运行进程"></a>运行进程</h1><p>系统调用，利用系统提供的fork和exec接口</p>
+<h1 id="衍生新进程"><a href="#衍生新进程" class="headerlink" title="衍生新进程"></a>衍生新进程</h1><p>可以类比erlang的spawn，能够执行任意go或者非go程序，等待返回结果，外部进程结束后继续执行本程序。<br>go提供了eexec.Command来执行其他程序。  </p>
+<h1 id="执行外部程序"><a href="#执行外部程序" class="headerlink" title="执行外部程序"></a>执行外部程序</h1><p>把新程序加载到自己的内存里。<br>执行外部程序不会返回到原进程中。<br>应用的机制是syscall这个包</p>
+<h1 id="复制进程"><a href="#复制进程" class="headerlink" title="复制进程"></a>复制进程</h1><p>go没有提供复制父进程的堆栈空间的接口，事实上spawn, exec都是调用的Fork</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/12/24/LinuxProcess-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" data-id="clqi9htlh0001u0cxfe4qclef" data-title="LinuxProcess/基础知识" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-HTTP-day4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/12/24/HTTP-day4/" class="article-date">
@@ -559,101 +701,6 @@ Bellman-Ford算法的限制：图不能包含负权环，但是可以检测负�
 
 
   
-    <article id="post-该认真学习vue了day1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/" class="article-date">
-  <time class="dt-published" datetime="2023-11-18T07:51:48.000Z" itemprop="datePublished">2023-11-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/">该认真学习vue了day1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>以问题的形式进行学习，前端就是拿来用的。</p>
-<p>Q1: 怎样用Vue创建一个应用？<br>A1: Vue.createApp()是程序的入口，创建之后挂载到对应的div上。  </p>
-<p>Q2: vue条件控制是怎样的？<br>A2: 再每一个标签里面都可以用v-if&#x3D;””，里面是一段JS代码用于判定条件。</p>
-<p>Q3: Vue怎样监听鼠标事件？<br>A3: Vue3提供了@mouseenter. @mouseleave, @mousemove等，可以用于处理不同的鼠标事件。</p>
-<p>Q4: 有一段动态更新的列表，怎样把他显示出来呢？<br>A4: 可以在再ul里面用v-for，然后就是常规的JS代码了。</p>
-<p>Q5： 如果想要放置一个链接应该怎么做？<br>A5: 你既可以用常规的html的链接，但这样就不能动态刷新了，也可以选择v-bind:href&#x3D;”item”，注意一下这里的item不需要加上两层花括号。</p>
-<p>Q6: Vue里面都包括什么？<br>A6: App.vue包括Header.vue, Article.vue(content.vue, component.vue), Footer.vue。。</p>
-<p>Q7: App.vue的结构是什么样？或者说component的结构是什么样？<br>A7: template, script, style三个部分，其中component就是描述每一个组件的单元。</p>
-<p>Q8: 如何把自己编写的component引入到项目中呢？<br>A8： import这个vue文件，再export中声明到components里面，就可以作为类似tag来使用。</p>
-<p>Q9：每个组件的style应该怎么处理？<br>A9：最好在每一个component的style后加上scoped，避免对全局的影响。</p>
-<p>Props Part<br>Q10: 为什么用props？<br>A10：提高重用性。</p>
-<p>Q11：props报错怎么办呢？<br>A11：首先看script是不是加了setup，去掉他。</p>
-<p>Q12：使用props时候的参数绑定和解绑？<br>A12：使用props可以在标签内用:title&#x3D;’title’的形式来绑一个元素。</p>
-<p>Q13: Props可以用来干什么？<br>Q14：可以用于条件渲染，比如用props来传递一个参数，只有当参数特定时才能使用对应的css style或者是js代码。</p>
-<p>Q15：Life cycle hooks有什么用？<br>A15：这是用于管理每一个components的生命周期的东西，与虚拟DOM的操作有关。</p>
-<p>Q16：有哪些hook呢？<br>A16：常见的有mounted(), updated()</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/18/%E8%AF%A5%E8%AE%A4%E7%9C%9F%E5%AD%A6%E4%B9%A0vue%E4%BA%86day1/" data-id="clp5ntrga00001ccx9wpzb9rb" data-title="该认真学习vue了day1" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-算法学习-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/" class="article-date">
-  <time class="dt-published" datetime="2023-11-18T02:36:26.000Z" itemprop="datePublished">2023-11-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/">算法学习-3</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="书接上篇，继续动态规划。有关计数问题的DP"><a href="#书接上篇，继续动态规划。有关计数问题的DP" class="headerlink" title=" 书接上篇，继续动态规划。有关计数问题的DP"></a> 书接上篇，继续动态规划。<br>有关计数问题的DP</h2><p>例题1：有n个无区别的物品，将他们划分成不超过m组，求划分方法数模M的余数.（n的m划分）<br>举个例子，4个物品，放在3组以内，有112，22，13，4四种方法。</p>
-<p>定义dp[i][j]为j的i划分的总数。这个题既然是动态规划，就应该考虑状态转移。<br>怎么转移呢？不妨先考虑最简单的情形。<br>当n等于1时，不管m多少，dp[1][m]&#x3D;1，只有一种方法。<br>当m&#x3D;1时，不管n多少，只有一种方法，也就是dp[n][1]&#x3D;1。<br>向外扩展，当n&#x3D;m时，必然存在一种分法，就是n自身，因此可以视作dp[n][n]&#x3D;1+dp[n][n-1]，其中n只有一种分法使得该数不小于n，因此剩下的分法为dp[n][n-1]。<br>当$n&lt;m$时，由于n不能分成m大，最大也只有n，所以dp[n][m]&#x3D;dp[n][n]。<br>重点时$n&gt;m$的情况。<br>如果划分里有m，那么剩下的那一部分的和为n-m，因此其划分为dp[n-m][m]。<br>如果不包括m，那么划分中所有值都比m小，即n的(m-1)划分，个数为dp[n][m-1]。</p>
-<p>例题2：多重集合组合数<br>n种物品，第i种有$a_i$个。不同种可以区分，同种不能区分。从这些物品取出m个，有多少种取法。<br>定义dp[i+1][j]为前i种物品取出j个的组合数总数。从前i种取出j个，可以从前i-1种物品取出j-k个，再从第i个物品取出k个添加进来，从而有<br>$$dp[i+1][j]&#x3D;\sum_{k&#x3D;0}^{min(j,a[i])} dp[i][j-k] $$</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/11/18/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-3/" data-id="clp3k7su60000c8cxdng708j9" data-title="算法学习-3" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -690,6 +737,14 @@ Bellman-Ford算法的限制：图不能包含负权环，但是可以检测负�
       <ul>
         
           <li>
+            <a href="/2023/12/24/LinuxProcess-go%E8%BF%9B%E7%A8%8B/">LinuxProcess/go进程</a>
+          </li>
+        
+          <li>
+            <a href="/2023/12/24/LinuxProcess-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">LinuxProcess/基础知识</a>
+          </li>
+        
+          <li>
             <a href="/2023/12/24/HTTP-day4/">HTTP/day4</a>
           </li>
         
@@ -699,14 +754,6 @@ Bellman-Ford算法的限制：图不能包含负权环，但是可以检测负�
         
           <li>
             <a href="/2023/12/24/HTTP-day2/">HTTP/day2.md</a>
-          </li>
-        
-          <li>
-            <a href="/2023/12/24/HTTP-day1/">HTTP/day1.md</a>
-          </li>
-        
-          <li>
-            <a href="/2023/11/29/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-5/">算法学习-5</a>
           </li>
         
       </ul>
